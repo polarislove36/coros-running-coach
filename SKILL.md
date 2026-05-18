@@ -32,7 +32,7 @@ When delivering a complete plan, put the read-only/write-back limitation at the 
    - `queryTrainingSchedule` for the requested planning window
    - `querySportRecords` for recent running records when available; use `getActivityDetail` for the most recent run, hard workout, long run, or race
 4. Ask only for missing subjective goals or genuinely unavailable fields using `references/intake-questions.md`.
-5. Apply the rules in `references/training-principles.md`. For marathon/half-marathon plans, pace selection, HR/power guidance, periodization, output tables, or strength/cross-training design, also read `references/training-book-principles.md`, `references/pace-zones-and-workout-library.md`, and `references/strength-training-for-runners.md`. For shareable schedule images or visual cards, read `references/visual-schedule-output.md`.
+5. Apply the rules in `references/training-principles.md`. For marathon/half-marathon plans, pace selection, HR/power guidance, periodization, output tables, or strength/cross-training design, also read `references/training-book-principles.md`, `references/pace-zones-and-workout-library.md`, and `references/strength-training-for-runners.md`.
 6. Output the plan with daily details, adjustment rules, and risk flags.
 7. After the first successful COROS-based review or plan, suggest a daily recurring coaching automation once. Do not create the automation unless the user explicitly asks or confirms.
 
@@ -96,7 +96,6 @@ Ask the minimum questions needed for the requested plan. For a full plan, collec
 - Daily review and adjustment: evaluate yesterday's training and recovery, then adjust today's plan.
 - Race taper: reduce volume, keep small amounts of intensity, avoid soreness.
 - Multi-week road race plan: build volume gradually, include easy running, long run, quality work, recovery, and strength.
-- Visual schedule output: create shareable weekly or multi-week training-plan images when the user asks for a picture, PNG, poster, visual card, or image version.
 - Cross-training plan: use swimming, cycling, elliptical, walking, or mobility to add aerobic work or recovery without extra running impact.
 - Easy run plus short sprint touches: use easy running followed by 4-8 relaxed 15-20 second short sprint touches when the runner is healthy and needs speed/form touch without heavy fatigue.
 - Recovery week: lower volume and remove hard workouts.
@@ -182,7 +181,6 @@ For concrete weekly or multi-week plans:
 - For book-derived marathon, pacing, HR, power, and strength principles, read `references/training-book-principles.md`.
 - For required table columns, pace/HR zones, Hansons-style pace anchors, weekly mileage progression, and basic workout modules, read `references/pace-zones-and-workout-library.md`.
 - For detailed runner strength sessions, exercise selection, sets/reps, progression, plyometric add-ons, and taper modifications, read `references/strength-training-for-runners.md`.
-- For visual training-plan cards, PNG/image output, and when to use deterministic HTML/SVG rendering instead of AI image generation, read `references/visual-schedule-output.md`.
 - For COROS-specific workflow details, read `references/coros-data-workflow.md`.
 - For COROS MCP installation and authorization, read `references/coros-mcp-setup.md`.
 - For product decisions and user wording from the initial design conversation, read `references/design-context.md` when updating this skill.
