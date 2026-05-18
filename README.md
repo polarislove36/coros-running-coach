@@ -8,14 +8,19 @@
 
 ### 功能
 
-- 引导用户安装并授权 COROS MCP。
-- 优先读取 COROS 数据，再提问：恢复、HRV、睡眠、静息心率、训练负荷、运动记录、训练日程等。
-- 复盘上一次运动，并直接给出教练判断：保持计划、减少跑量、取消强度、改交叉训练或休息。
-- 生成 5K、10K、半马、全马、赛前减量、恢复周、有氧基础期、强度提升期等训练计划。
+这个 skill 主要面向高驰 COROS 手表用户。授权 COROS MCP 后，它可以读取手表里的训练、恢复、HRV、睡眠、静息心率、训练负荷和运动记录等数据，并结合你的目标赛事、当前 PB、目标完赛时间、可训练时间和伤病情况，生成可执行的跑步训练计划。
+
+它也支持每日复盘：读取你上一次运动记录和当天恢复状态，评价训练完成情况，并根据恢复、HRV、睡眠、静息心率和训练负荷，实时调整未来几天的训练安排。
+
+具体能力包括：
+
+- 根据高驰数据和目标赛事生成 5K、10K、半马、全马训练计划。
+- 根据当前 PB 和目标完赛时间，给出参考配速、参考心率和阶段安排。
+- 复盘上一次运动，判断训练是否符合计划目的。
+- 每日读取恢复数据，判断是否保持计划、减少跑量、取消强度、改交叉训练或休息。
 - 输出具体日期、周几、训练项目、参考配速、参考心率、训练目的。
 - 周跑量放在周标题中，例如：`第 1 周｜有氧能力建设基础期｜周跑量36km`。
 - 力量训练会写清楚动作、组数、次数和强度，不只写“力量训练 30 分钟”。
-- 支持每日定时复盘：读取上一次训练和恢复数据，给出未来三天调整建议。
 
 ### 安装
 
@@ -93,14 +98,19 @@ codex mcp login coros
 
 ### What It Does
 
-- Guides users through COROS MCP setup and authorization.
-- Reads COROS data first when available: recovery, HRV, sleep, resting heart rate, training load, activity records, and schedule.
-- Reviews the latest workout and gives a coach decision: keep the plan, reduce volume, remove intensity, cross-train, or rest.
-- Generates plans for 5K, 10K, half marathon, marathon, taper, recovery, aerobic base, and intensity development.
-- Outputs concrete dates, weekdays, sessions, reference pace, reference heart-rate guidance, and purpose.
-- Places weekly mileage in the week heading, such as `Week 1 | Aerobic Base | 36 km`.
-- Includes detailed runner strength work with exercises, sets, reps, and intensity.
-- Supports a daily recurring review workflow: read the latest workout and recovery data, then adjust the next three days when needed.
+This skill is built for COROS watch users. After COROS MCP authorization, it can read watch data such as training history, recovery, HRV, sleep, resting heart rate, training load, and recent activity records. It combines that data with the user's target race, current PB, target finish time, training availability, and injury status to generate practical running plans.
+
+It also supports daily review: it reads the latest workout and current recovery state, evaluates whether the workout matched its purpose, and adjusts the next few days based on recovery, HRV, sleep, resting heart rate, and training load.
+
+Core capabilities:
+
+- Generate 5K, 10K, half-marathon, and marathon plans from COROS data and race goals.
+- Use current PB and target finish time to provide reference paces, heart-rate guidance, and training phases.
+- Review the latest workout and judge whether it matched the planned purpose.
+- Make daily coaching decisions: keep the plan, reduce volume, remove intensity, cross-train, or rest.
+- Output concrete dates, weekdays, sessions, reference pace, reference heart-rate guidance, and purpose.
+- Place weekly mileage in the week heading, such as `Week 1 | Aerobic Base | 36 km`.
+- Include detailed runner strength work with exercises, sets, reps, and intensity.
 
 ### Install
 
