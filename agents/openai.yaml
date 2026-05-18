@@ -1,0 +1,13 @@
+interface:
+  display_name: "COROS Running Coach"
+  short_description: "Generate adaptive running plans from COROS data or a runner intake."
+  default_prompt: "Use $coros-running-coach to create an adaptive running plan from my COROS data."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "coros"
+      description: "COROS MCP server for training, recovery, sleep, HRV, and schedule data."
+      transport: "streamable_http"
+      url: "https://mcpcn.coros.com/mcp"
+policy:
+  allow_implicit_invocation: true
