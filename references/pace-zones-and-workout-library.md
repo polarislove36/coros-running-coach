@@ -71,8 +71,20 @@ If the user has no COROS zones, HRmax, or threshold HR available, say `按 Z2 �
 
 For compound workouts, specify pace and HR for every segment. Do not write only one pace/HR for the whole workout. Example:
 
-- `轻松跑 7km + 4组短时间冲刺跑`
-- Pace/HR cell: `轻松段 6:05-6:35/km，约 138-148 bpm；冲刺段 15-20秒/组，约 4:30-5:00/km 或放松快跑，心率不作为控制指标，组间走/慢跑至呼吸恢复。`
+- `轻松跑 7km + 4组15秒短时间冲刺跑`
+- Pace/HR cell: `轻松段 6:05-6:35/km，约 138-148 bpm；冲刺段 4组x15秒，约 4:30-5:00/km 或放松快跑，心率不作为控制指标，组间走/慢跑60-90秒至呼吸恢复。`
+
+## Workout Notation and Distance Accounting
+
+Every structured workout must be executable without guessing.
+
+- Use `3组x6分钟`, not bare `3x6分钟`, in Chinese output.
+- Always state the recovery between reps: `组间慢跑3分钟`, `组间慢跑400米`, or `组间走/慢跑60-90秒`.
+- Always state whether warm-up and cooldown are running: use `热身跑` and `放松跑`, not only `热身` and `放松`.
+- If the total distance is approximate because the work segments are prescribed by time, write `约11km`, not `11km`.
+- The listed total distance must roughly match the components. If the math does not fit, adjust the total or components before output.
+- In the `训练项目` cell, include the full structure. Example: `阈值入门 约9-10km：热身跑2km + 3组x6分钟阈值跑，组间慢跑3分钟 + 放松跑2km`.
+- In the `参考配速 / 参考心率` cell, specify pace and HR for warm-up/cooldown, work segments, and recovery jogs.
 
 ## Hansons-Style Pace Reference
 
@@ -126,6 +138,7 @@ Do not use a faster target row just because the user wants that finish time. If 
 - Dose: continuous 15-30 minutes or cruise intervals such as 3 x 8 min, 4 x 6 min, 2 x 15 min.
 - Pace/HR: threshold/tempo pace; COROS Z3-Z4 when available; controlled hard.
 - Use: strong choice for 10K, half marathon, and marathon builds.
+- Output requirement: for cruise intervals, write the recovery jog explicitly. Example: `热身跑2km + 3组x8分钟阈值跑，组间慢跑3分钟 + 放松跑2km`.
 
 ### 节奏跑 / 马拉松配速跑
 
@@ -140,6 +153,7 @@ Do not use a faster target row just because the user wants that finish time. If 
 - Dose: examples include 5 x 3 min, 6 x 800 m, 5 x 1 km with easy jog recovery.
 - Pace/HR: 5K-10K pace; Z4-Z5 eventually, but use pace/RPE because HR lags.
 - Use: more in 5K/10K blocks; sparingly in marathon blocks.
+- Output requirement: write recovery after every rep prescription. Example: `5组x3分钟快跑，组间慢跑3分钟`.
 
 ### 法特莱克跑
 
@@ -158,9 +172,10 @@ Do not use a faster target row just because the user wants that finish time. If 
 ### 短时间冲刺跑
 
 - Purpose: neuromuscular sharpness and form.
-- Dose: 4-8 x 15-20 sec after an easy run, full walk/jog recovery.
+- Dose: default to 4-8 x 15 sec after an easy run, full walk/jog recovery. Use 20 sec only for experienced runners who already tolerate sprint touches; avoid 30 sec unless explicitly programming a different workout.
 - Pace/HR: smooth fast, not all-out; if pace is needed, use roughly 5K pace to mile effort depending on the runner, but prioritize relaxed form. HR is not useful because the repetition is too short.
 - Use: healthy legs only; skip after long/hard days or poor sleep.
+- Output requirement: always write the duration, such as `4组15秒短时间冲刺跑，组间走/慢跑60-90秒`, not just `4组短时间冲刺跑`.
 
 ## Strength and Cross-Training Defaults
 

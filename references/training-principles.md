@@ -73,8 +73,8 @@ Prefer the smallest useful workout on questionable days: easy run, swim, walk, m
 Use this pattern often in road-running plans, especially base building, 5K-10K work, and race-week sharpening:
 
 1. Easy aerobic running first.
-2. Then 4-8 short relaxed sprint touches of 15-20 seconds.
-3. Recover fully between sprint touches; breathing and form should settle before the next one.
+2. Then 4-8 short relaxed sprint touches. Default to 15 seconds each; use 20 seconds only for experienced runners who already tolerate them.
+3. Recover fully between sprint touches, usually 60-90 seconds walking or easy jogging; breathing and form should settle before the next one.
 4. Stop if form tightens, pain appears, or fatigue turns the sprint touch into an all-out sprint.
 
 Do not use short sprint touches after every run. Avoid them after long/hard workouts, during injury flare-ups, or when the user reports poor sleep and heavy legs.

@@ -163,6 +163,8 @@ For concrete weekly or multi-week plans:
 - Label the stage of each week, such as `有氧能力建设基础期`, `强度提升期`, `专项能力巩固期`, or `减量期`.
 - Include reference pace and heart-rate guidance for each run. Use the user's actual COROS Z1-Z5 bpm ranges when available. If exact COROS heart-rate zones cannot be read but recent workout heart-rate data is available, infer conservative bpm ranges from similar past workouts and label them as inferred. If no bpm basis exists, use zone labels and RPE language from `references/pace-zones-and-workout-library.md`.
 - For compound sessions, write pace and heart-rate guidance for each segment, such as easy segment, threshold segment, sprint-touch segment, and recovery segment.
+- Structured workouts must be executable without guessing: write reps as `3组x6分钟`, include recovery such as `组间慢跑3分钟`, use `热身跑`/`放松跑`, and make total distance match the components. If total distance is time-based or estimated, write `约`.
+- For short sprint touches, always specify duration and recovery. Default to `15秒短时间冲刺跑，组间走/慢跑60-90秒`.
 - Keep weekly mileage progression conservative: below 20 km may increase up to 30% for true beginners with good recovery; 20-30 km should usually increase by no more than 20%; above 30 km should usually increase by no more than 10%.
 
 ## Guardrails
