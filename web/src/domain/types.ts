@@ -41,3 +41,24 @@ export interface TrainingDay {
   heartRate: string;
   purpose: string;
 }
+
+export type OnboardingStepId = "landing" | "login" | "coros-auth" | "intake";
+
+export interface OnboardingStep {
+  id: OnboardingStepId;
+  title: string;
+  description: string;
+}
+
+export interface IntakeDraft {
+  targetRace: string;
+  raceDate: string;
+  currentPb: string;
+  goalTime: string;
+  weeklyTrainingDays: number;
+  preferredLongRunDay: string;
+  trainingStyle: "conservative" | "standard" | "progressive";
+  wantsStrength: boolean;
+  acceptsCrossTraining: boolean;
+  recentIssue: string;
+}
