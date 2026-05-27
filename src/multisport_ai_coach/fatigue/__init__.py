@@ -1,0 +1,2 @@
+"""Fatigue and load management."""
+
