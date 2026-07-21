@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="TrainPilot 是面向铁三、跑步、骑行和多项目训练用户的 AI 多运动训练系统。">
+  <title>TrainPilot｜Build Web Apps Plugin 首页方案</title>
+  <style>
+    :root{
+      --ink:#07111f;
+      --muted:#59677a;
+      --line:#dce5ef;
+      --paper:#ffffff;
+      --canvas:#f6f8fb;
+      --blue:#1b65ff;
+      --blue-dark:#0c46c8;
+      --cyan:#12a9d8;
+      --green:#23a46b;
+      --orange:#ff7a1a;
+      --violet:#6f5cff;
+      --navy:#081321;
+      --shadow:0 18px 52px rgba(10,28,56,.10);
+      --content:1180px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:linear-gradient(180deg,#fff 0%,#f7f9fc 44%,#eef3f8 100%);color:var(--ink);font-family:"Inter","Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;text-rendering:optimizeLegibility}
+    a{color:inherit}
+    img{display:block;max-width:100%}
+    button{font:inherit}
+    .container{width:min(var(--content),calc(100% - 40px));margin-inline:auto}
+    .topbar{position:sticky;top:12px;z-index:30;width:min(var(--content),calc(100% - 32px));height:64px;margin:12px auto 0;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 12px 0 18px;border:1px solid rgba(220,229,239,.9);border-radius:12px;background:rgba(255,255,255,.92);box-shadow:0 14px 42px rgba(7,17,31,.08);backdrop-filter:blur(16px)}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:950;letter-spacing:-.02em}
+    .brand-logo{display:grid;place-items:center;width:36px;height:36px;border-radius:9px;background:var(--ink);color:#fff;font-style:italic;font-weight:950;letter-spacing:-.13em}
+    .navlinks{display:flex;align-items:center;gap:4px}
+    .navlinks a{padding:10px 11px;border-radius:9px;color:#455366;font-size:14px;font-weight:780;text-decoration:none;white-space:nowrap}
+    .navlinks a:hover{background:#f0f4fa;color:var(--ink)}
+    .actions{display:flex;align-items:center;gap:10px}
+    .login{padding:10px 12px;text-decoration:none;font-weight:820;color:#344154;white-space:nowrap}
+    .btn{display:inline-flex;min-height:42px;align-items:center;justify-content:center;padding:0 17px;border:1px solid var(--blue);border-radius:9px;background:var(--blue);color:#fff;font-weight:900;text-decoration:none;white-space:nowrap;cursor:pointer;transition:.16s ease}
+    .btn:hover{background:var(--blue-dark);box-shadow:0 14px 30px rgba(27,101,255,.22)}
+    .btn.secondary{background:#fff;color:var(--blue)}
+    .btn.secondary:hover{background:#edf4ff}
+    .hero{padding:56px 0 40px}
+    .hero-layout{display:grid;grid-template-columns:minmax(0,.92fr) minmax(460px,1.08fr);gap:34px;align-items:center}
+    h1{margin:0;font-size:clamp(48px,6.5vw,86px);line-height:.96;letter-spacing:-.065em}
+    .subhead{margin:14px 0 0;font-size:clamp(28px,3.2vw,44px);line-height:1.12;font-weight:950;letter-spacing:-.045em}
+    .slogan{margin:16px 0 0;color:var(--blue);font-size:clamp(21px,2.4vw,34px);font-weight:950;letter-spacing:-.035em}
+    .lead{max-width:620px;margin:22px 0 0;color:var(--muted);font-size:17px;line-height:1.8}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+    .quick-proof{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:30px;max-width:650px}
+    .proof-item{padding:13px 12px;border:1px solid var(--line);border-radius:10px;background:#fff}
+    .proof-item b{display:block;font-size:13px}.proof-item span{display:block;margin-top:4px;color:var(--muted);font-size:12px;line-height:1.45}
+    .product-stage{position:relative;min-height:610px;padding:18px;border:1px solid #d6e1ef;border-radius:12px;background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(241,246,255,.92));box-shadow:var(--shadow);overflow:hidden}
+    .stage-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.34;filter:saturate(1.05)}
+    .app-shell{position:relative;z-index:2;display:grid;grid-template-columns:170px 1fr;gap:14px;height:100%}
+    .sidebar,.workspace{border:1px solid rgba(220,229,239,.92);border-radius:12px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px)}
+    .sidebar{padding:14px;display:flex;flex-direction:column;gap:10px}
+    .side-title{font-size:12px;color:var(--muted);font-weight:900}
+    .side-nav{display:grid;gap:6px}.side-nav span{padding:9px 10px;border-radius:8px;color:#445267;font-size:13px;font-weight:780}.side-nav span.active{background:var(--navy);color:#fff}
+    .coach-row{margin-top:auto;padding:12px;border-radius:10px;background:#eef5ff;color:var(--blue);font-size:12px;font-weight:900;line-height:1.5}
+    .workspace{padding:16px;min-width:0}
+    .workspace-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:14px}.workspace-head h2{margin:0;font-size:24px;letter-spacing:-.03em}.workspace-head p{margin:5px 0 0;color:var(--muted);font-size:13px}
+    .health-score{display:grid;place-items:center;width:72px;height:72px;border-radius:50%;background:conic-gradient(var(--green) 0 78%,#e6edf6 78%);font-weight:950}
+    .today-card{padding:18px;border-radius:12px;background:var(--navy);color:#fff}.today-card h3{margin:0;font-size:25px;letter-spacing:-.03em}.today-card p{margin:9px 0 0;color:#d7dfec;line-height:1.65;font-size:14px}
+    .intensity{display:grid;grid-template-columns:18% 64% 18%;height:14px;overflow:hidden;border-radius:999px;margin-top:18px;background:#1b2a43}.intensity i:nth-child(1){background:#85b8ff}.intensity i:nth-child(2){background:var(--blue)}.intensity i:nth-child(3){background:var(--orange)}
+    .zone-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.zone{padding:11px;border-radius:9px;background:#111f35;color:#d7dfec;font-size:12px}.zone b{display:block;color:#fff;font-size:16px;margin-bottom:3px}
+    .future{display:grid;gap:8px;margin-top:14px}.future-row{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:10px;padding:11px 12px;border:1px solid #edf1f6;border-radius:10px;background:#fff;font-size:13px}.future-row b{color:var(--blue)}.future-row span{color:#47566a}
+    .shell-footer{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.small-metric{padding:12px;border-radius:10px;background:#fff;border:1px solid #edf1f6;color:var(--muted);font-size:12px}.small-metric b{display:block;margin-top:4px;color:var(--ink);font-size:20px}
+    .section{padding:70px 0}.section.white{background:#fff}
+    .section-head{display:grid;grid-template-columns:1fr minmax(260px,420px);gap:24px;align-items:end;margin-bottom:26px}.section-head h2{margin:0;font-size:clamp(32px,4.5vw,58px);line-height:1.08;letter-spacing:-.052em}.section-head p{margin:0;color:var(--muted);font-size:16px;line-height:1.75}
+    .capability-layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}.decision-board{padding:24px;border-radius:12px;background:var(--navy);color:#fff;box-shadow:var(--shadow)}.decision-board h3{margin:0 0 10px;font-size:27px;letter-spacing:-.03em}.decision-board p{margin:0 0 22px;color:#cbd6e8;line-height:1.7}
+    .decision-line{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:15px 0;border-top:1px solid rgba(255,255,255,.14)}.decision-line strong{font-size:14px}.decision-line span{color:#cbd6e8;font-size:13px}
+    .sport-column{display:grid;grid-template-rows:repeat(3,1fr);gap:16px}.sport-card{display:grid;grid-template-columns:58px 1fr;gap:16px;align-content:center;padding:22px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 12px 34px rgba(10,28,56,.06)}
+    .sport-icon{display:grid;place-items:center;width:58px;height:58px;border-radius:10px;font-size:22px;font-weight:950;color:#fff}.sport-icon.swim{background:var(--cyan)}.sport-icon.bike{background:var(--green)}.sport-icon.run{background:var(--orange)}
+    .sport-card h3{margin:0 0 7px;font-size:22px}.sport-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.65}
+    .screen-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:16px;align-items:stretch}.phone-frame,.panel-list{border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow)}
+    .phone-frame{padding:18px}.phone-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.phone-top b{font-size:20px}.phone-top span{color:var(--green);font-weight:900;font-size:13px}
+    .phone-body{padding:18px;border-radius:12px;background:var(--navy);color:#fff}.phone-body h3{margin:0;font-size:27px;letter-spacing:-.03em}.phone-body p{margin:9px 0 18px;color:#d9e2ef;line-height:1.65}
+    .panel-list{padding:18px;display:grid;gap:12px}.panel-list article{padding:16px;border:1px solid #edf1f6;border-radius:10px;background:#fbfcfe}.panel-list h3{margin:0 0 8px;font-size:18px}.panel-list p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
+    .workflow{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.flow-card{padding:18px;border:1px solid var(--line);border-radius:12px;background:#fff}.flow-num{display:grid;place-items:center;width:30px;height:30px;border-radius:8px;background:var(--blue);color:#fff;font-size:13px;font-weight:950}.flow-card h3{margin:18px 0 8px;font-size:18px}.flow-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}
+    .plan-shell{overflow:hidden;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow)}.plan-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border-bottom:1px solid var(--line)}.plan-toolbar h3{margin:0;font-size:22px}.legend{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:12px}.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px}
+    .table-wrap{overflow:auto}table{width:100%;min-width:860px;border-collapse:collapse}th,td{padding:15px 14px;border-right:1px solid #edf1f6;border-bottom:1px solid #edf1f6;text-align:left;vertical-align:top;font-size:13px;line-height:1.45}th{background:#f8fafc;color:#344055;font-size:12px}td strong{display:block;margin-bottom:4px}
+    .swim{color:var(--cyan)}.bike{color:var(--green)}.run{color:var(--orange)}.strength{color:var(--violet)}.sport-icon.swim,.sport-icon.bike,.sport-icon.run{color:#fff}
+    .pricing-box{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;padding:28px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow)}.pricing-box h2{margin:0;font-size:32px;letter-spacing:-.04em}.pricing-box p{margin:10px 0 0;color:var(--muted);line-height:1.65}.price{font-size:52px;font-weight:950;letter-spacing:-.06em;white-space:nowrap}.price span{font-size:16px;color:var(--muted);letter-spacing:0}
+    .faq{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.faq article{padding-top:18px;border-top:2px solid var(--line)}.faq h3{margin:0 0 8px;font-size:16px}.faq p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
+    .final{position:relative;overflow:hidden;background:var(--navy);color:#fff}.final img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.28}.final-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;padding:56px 0}.final h2{margin:0;font-size:35px;letter-spacing:-.04em}.final p{margin:10px 0 0;color:#dbe6f8}
+    .footer{border-top:1px solid var(--line);background:#fff}.footer-inner{display:grid;grid-template-columns:1.8fr repeat(4,1fr);gap:22px;padding:30px 0}.footer p,.footer a{color:var(--muted);font-size:12px;line-height:1.7;text-decoration:none}.footer b{display:block;margin-bottom:9px;font-size:13px}.footer a{display:block}
+    @media(max-width:1000px){.navlinks{display:none}.hero-layout,.capability-layout,.screen-grid{grid-template-columns:1fr}.product-stage{min-height:620px}.quick-proof{grid-template-columns:repeat(2,1fr)}.section-head{grid-template-columns:1fr}.workflow,.faq{grid-template-columns:repeat(2,1fr)}.pricing-box,.final-inner{grid-template-columns:1fr}.footer-inner{grid-template-columns:1.4fr repeat(2,1fr)}}
+    @media(max-width:720px){.container{width:min(100% - 28px,var(--content))}.topbar{top:0;width:100%;margin:0;border-left:0;border-right:0;border-top:0;border-radius:0}.login{display:none}.hero{padding:44px 0 28px}.hero-layout{gap:24px}.product-stage{min-height:auto;padding:12px}.app-shell{grid-template-columns:1fr}.sidebar{display:none}.stage-photo{position:absolute}.workspace{background:rgba(255,255,255,.95)}.zone-grid,.shell-footer,.quick-proof,.workflow,.faq{grid-template-columns:1fr}.capability-layout,.sport-column{gap:12px}.section{padding:52px 0}.sport-card{grid-template-columns:48px 1fr;padding:18px}.sport-icon{width:48px;height:48px}.pricing-box{padding:22px}.price{font-size:42px}.footer-inner{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}}
+  </style>
+</head>
+<body>
+  <header class="topbar" aria-label="主导航">
+    <a class="brand" href="#"><span class="brand-logo">TP</span><span>TrainPilot</span></a>
+    <nav class="navlinks"><a href="#value">产品价值</a><a href="#screens">示例界面</a><a href="#workflow">如何使用</a><a href="#plan">训练计划</a><a href="#pricing">价格</a><a href="#faq">常见问题</a></nav>
+    <div class="actions"><a class="login" href="02-login.html">登录</a><a class="btn" href="02-login.html">开始体验</a></div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-layout">
+        <div>
+          <h1>TrainPilot</h1>
+          <p class="subhead">AI多运动训练系统</p>
+          <p class="slogan">让每次训练，都有下一步</p>
+          <p class="lead">面向铁三、跑步、骑行和多项目训练用户，读取运动设备数据，结合训练历史、恢复状态和个人目标，生成周期计划并每天调整后续训练安排。</p>
+          <div class="hero-actions"><a class="btn" href="02-login.html">开始体验</a><a class="btn secondary" href="#screens">查看示例</a></div>
+          <div class="quick-proof" aria-label="核心能力"><div class="proof-item"><b>完整铁三周期</b><span>跑骑游统一协调</span></div><div class="proof-item"><b>首批支持高驰</b><span>后续接入更多设备</span></div><div class="proof-item"><b>每日自动复盘</b><span>每天读取一次数据</span></div><div class="proof-item"><b>导出与同步</b><span>表格 / 图片 / 日历</span></div></div>
+        </div>
+        <div class="product-stage" aria-label="TrainPilot 产品界面示例">
+          <img class="stage-photo" src="assets/trainpilot-hero-athletes.png" alt="">
+          <div class="app-shell">
+            <aside class="sidebar"><div class="side-title">TRAINPILOT</div><div class="side-nav"><span class="active">今日训练</span><span>周期计划</span><span>每日复盘</span><span>设备数据</span><span>导出同步</span></div><div class="coach-row">总教练已重新排序未来 3 天训练</div></aside>
+            <section class="workspace">
+              <div class="workspace-head"><div><h2>今日训练首页</h2><p>先给结论，再给数据依据和未来 3 天调整。</p></div><div class="health-score">82</div></div>
+              <div class="today-card"><h3>今天建议：骑行 Z2 70分钟</h3><p>原因：睡眠偏短，跑步强度顺延，保留低压力有氧。</p><div class="intensity"><i></i><i></i><i></i></div><div class="zone-grid"><div class="zone"><b>Z1热身</b>10分钟<br>118-132 bpm</div><div class="zone"><b>Z2有氧</b>55分钟<br>132-146 bpm</div><div class="zone"><b>Z3下沿</b>5分钟<br>149-156 bpm</div></div></div>
+              <div class="future"><div class="future-row"><b>周三</b><span>跑步 节奏跑45分钟</span><span>›</span></div><div class="future-row"><b>周四</b><span>休息 / 灵活恢复</span><span>›</span></div><div class="future-row"><b>周五</b><span>跑步 轻松跑60分钟</span><span>›</span></div></div>
+              <div class="shell-footer"><div class="small-metric">HRV<b>56ms</b></div><div class="small-metric">静息心率<b>49</b></div><div class="small-metric">睡眠<b>6.3h</b></div><div class="small-metric">训练负荷<b>62</b></div></div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="value" class="section white"><div class="container"><div class="section-head"><h2>一个系统，协调你的所有训练</h2><p>TrainPilot 把跑步、骑行、游泳和力量训练放进同一套周期逻辑里，根据训练历史、恢复状态和目标优先级做调整。</p></div><div class="capability-layout"><div class="decision-board"><h3>多运动训练决策层</h3><p>总教练决定周期结构和风险控制，专项教练负责每个项目的具体训练内容。</p><div class="decision-line"><strong>A/B/C 赛事优先级</strong><span>已纳入</span></div><div class="decision-line"><strong>周训练量增长</strong><span>受控</span></div><div class="decision-line"><strong>恢复和疲劳风险</strong><span>每日检查</span></div><div class="decision-line"><strong>未来3天计划调整</strong><span>每天生成</span></div></div><div class="sport-column"><article class="sport-card"><span class="sport-icon swim">泳</span><div><h3>游泳训练</h3><p>根据泳池条件、泳量基础和技术短板，安排技术、有氧和间歇泳课。</p></div></article><article class="sport-card"><span class="sport-icon bike">骑</span><div><h3>骑行训练</h3><p>结合功率、心率和长骑能力，安排 Z2 有氧、节奏骑、长骑和补给练习。</p></div></article><article class="sport-card"><span class="sport-icon run">跑</span><div><h3>跑步训练</h3><p>控制跑量、长跑、配速和强度课，避免在骑行疲劳后叠加强刺激。</p></div></article></div></div></div></section>
+    <section id="screens" class="section"><div class="container"><div class="section-head"><h2>从数据到建议，不停在数据</h2><p>页面优先展示“今天怎么练、为什么、未来三天怎么改”，让用户不用自己解释一堆指标。</p></div><div class="screen-grid"><div class="phone-frame"><div class="phone-top"><b>今日训练首页</b><span>身体状态良好</span></div><div class="phone-body"><h3>今天建议：骑行 Z2 70分钟</h3><p>睡眠偏短，跑步强度顺延，保留低压力有氧。</p><div class="intensity"><i></i><i></i><i></i></div><div class="zone-grid"><div class="zone"><b>热身</b>Z1 10分钟</div><div class="zone"><b>主训练</b>Z2 55分钟</div><div class="zone"><b>收尾</b>Z3下沿5分钟</div></div></div></div><div class="panel-list"><article><h3>昨日训练评价</h3><p>完成质量良好，心率漂移可控，训练负荷略高于计划但仍在安全范围。</p></article><article><h3>今日身体状态判断</h3><p>HRV 正常，静息心率轻微升高，建议保留低强度训练。</p></article><article><h3>未来 3 天调整</h3><p>强度课顺延一天，长距离训练不变，力量训练保留核心部分。</p></article></div></div></div></section>
+    <section id="workflow" class="section white"><div class="container"><div class="section-head"><h2>如何使用 TrainPilot</h2><p>第一版先支持高驰用户，后续会接入更多运动设备。</p></div><div class="workflow"><article class="flow-card"><span class="flow-num">1</span><h3>选择方向</h3><p>选择铁三、跑步、骑行或多项目组合。</p></article><article class="flow-card"><span class="flow-num">2</span><h3>连接设备</h3><p>授权运动设备，自动读取训练与恢复数据。</p></article><article class="flow-card"><span class="flow-num">3</span><h3>补充目标</h3><p>填写目标赛事、当前能力和训练偏好。</p></article><article class="flow-card"><span class="flow-num">4</span><h3>生成周期</h3><p>生成完整训练周期和每周结构。</p></article><article class="flow-card"><span class="flow-num">5</span><h3>每日调整</h3><p>每天读取数据，复盘并调整未来训练。</p></article></div></div></section>
+    <section id="plan" class="section"><div class="container"><div class="section-head"><h2>示例周计划</h2><p>强度依据心率区间和训练负荷安排，可导出为表格、图片或同步到日历。</p></div><div class="plan-shell"><div class="plan-toolbar"><h3>第1周｜基础期｜总训练量8.5小时</h3><div class="legend"><span><i style="background:var(--cyan)"></i>游泳</span><span><i style="background:var(--green)"></i>骑行</span><span><i style="background:var(--orange)"></i>跑步</span><span><i style="background:var(--violet)"></i>力量</span></div></div><div class="table-wrap"><table><thead><tr><th>项目</th><th>周一</th><th>周二</th><th>周三</th><th>周四</th><th>周五</th><th>周六</th><th>周日</th></tr></thead><tbody><tr><td><strong class="swim">游泳</strong></td><td>技术 + 有氧<br>45分钟</td><td>—</td><td>间歇泳<br>50分钟</td><td>恢复泳<br>30分钟</td><td>—</td><td>技术 + 有氧<br>45分钟</td><td>—</td></tr><tr><td><strong class="bike">骑行</strong></td><td>—</td><td>Z2有氧骑<br>70分钟</td><td>—</td><td>节奏骑<br>60分钟</td><td>—</td><td>长骑<br>2.5-3小时</td><td>恢复骑<br>60分钟</td></tr><tr><td><strong class="run">跑步</strong></td><td>轻松跑<br>45分钟</td><td>—</td><td>节奏跑<br>45分钟</td><td>—</td><td>间歇跑<br>5×3分钟</td><td>砖跑<br>30-40分钟</td><td>长跑<br>75-90分钟</td></tr><tr><td><strong class="strength">力量</strong></td><td>全身力量<br>40分钟</td><td>核心力量<br>20分钟</td><td>—</td><td>全身力量<br>40分钟</td><td>核心力量<br>20分钟</td><td>—</td><td>—</td></tr><tr><td><strong>恢复</strong></td><td>灵活恢复</td><td>拉伸放松</td><td>灵活恢复</td><td>拉伸放松</td><td>灵活恢复</td><td>拉伸放松</td><td>灵活恢复</td></tr></tbody></table></div></div></div></section>
+    <section id="pricing" class="section white"><div class="container"><div class="pricing-box"><div><h2>19.9 元/月，简单透明</h2><p>限每日 1 次自动复盘 + 若干次手动追问，适合从跑步专项到完整铁三周期的训练建议服务。</p></div><div class="price">¥19.9<span>/月</span></div></div></div></section>
+    <section id="faq" class="section white" style="padding-top:26px"><div class="container"><div class="section-head"><h2>常见问题</h2><p>TrainPilot 只提供训练建议，不承诺医疗诊断或比赛成绩。</p></div><div class="faq"><article><h3>支持哪些设备？</h3><p>首批支持高驰，后续将申请接入佳明等更多平台。</p></article><article><h3>会读取哪些数据？</h3><p>训练记录、心率区间、HRV、静息心率、睡眠和恢复状态等可授权数据。</p></article><article><h3>可以没有目标赛事吗？</h3><p>可以。系统也能围绕健康、能力建设或日常训练进行安排。</p></article><article><h3>可以导出计划吗？</h3><p>计划支持导出为表格、图片，并准备同步到日历。</p></article></div></div></section>
+    <section class="final"><img src="assets/trainpilot-system-athletes.png" alt=""><div class="container final-inner"><div><h2>让每次训练，都有下一步</h2><p>从设备数据到训练决策，把多运动训练变成每天都能执行的计划。</p></div><a class="btn" href="02-login.html">开始体验 TrainPilot</a></div></section>
+  </main>
+  <footer class="footer"><div class="container footer-inner"><div class="footer-brand"><a class="brand" href="#"><span class="brand-logo">TP</span><span>TrainPilot</span></a><p>AI多运动训练系统</p></div><div><b>产品</b><a href="#value">产品价值</a><a href="#screens">示例界面</a><a href="#pricing">价格</a></div><div><b>帮助</b><a href="#faq">常见问题</a><a href="#">使用指南</a><a href="#">联系我们</a></div><div><b>关于我们</b><a href="#">公司介绍</a><a href="#">隐私政策</a><a href="#">服务条款</a></div><div><b>关注我们</b><a href="#">微信公众号</a><a href="#">小红书</a><a href="#">用户社群</a></div></div></footer>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>今日总教练首页｜多运动耐力 AI 教练</title>
+  <style>
+    :root{--blue:#2563eb;--orange:#f97316;--cyan:#0891b2;--green:#16a34a;--purple:#7c3aed;--red:#dc2626;--bg:#f8fafc;--text:#1e293b;--muted:#64748b;--line:#e2e8f0}
+    *{box-sizing:border-box}body{margin:0;background:#f8fafc;color:var(--text);font-family:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif}.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.side{padding:22px;border-right:1px solid var(--line);background:#fff}.brand{display:flex;gap:10px;align-items:center;font-weight:900;margin-bottom:28px}.logo{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--blue);color:#fff}.nav{display:grid;gap:6px}.nav a{padding:12px;border-radius:12px;color:var(--muted);text-decoration:none;font-weight:800}.nav a.active,.nav a:hover{background:#eff6ff;color:var(--blue)}.main{padding:24px 28px 48px}.topbar{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:18px}.eyebrow{color:var(--blue);font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}h1{margin:6px 0;font-size:clamp(30px,4vw,50px);line-height:1.1}.muted{color:var(--muted);line-height:1.65}.pill{padding:8px 11px;border-radius:999px;background:#dcfce7;color:#166534;font-weight:900}.layout{display:grid;grid-template-columns:1fr 360px;gap:18px}.panel{padding:20px;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:0 14px 40px rgba(15,23,42,.05);margin-bottom:18px}
+    .decision{background:linear-gradient(135deg,#eff6ff,#fff)}.decision-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.decision h2{margin:6px 0 8px;font-size:30px}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.btn{padding:12px 14px;border-radius:12px;text-decoration:none;font-weight:900}.primary{background:var(--orange);color:#fff}.ghost{border:1px solid var(--line);color:var(--text);background:#fff}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.metric{padding:14px;border:1px solid var(--line);border-radius:15px;background:#f8fafc}.metric span{color:var(--muted);font-size:13px}.metric b{display:block;margin-top:7px;font-size:23px}.review{display:grid;grid-template-columns:110px 1fr;gap:16px;align-items:center}.score{display:grid;place-items:center;width:96px;height:96px;border-radius:50%;background:conic-gradient(var(--green) 82%,#e2e8f0 0)}.score span{display:grid;place-items:center;width:70px;height:70px;border-radius:50%;background:#fff;font-weight:900;color:#166534}.table{display:grid;gap:10px}.row{display:grid;grid-template-columns:82px 1fr 120px;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:14px;background:#f8fafc}.tag{padding:6px 9px;border-radius:999px;color:#fff;font-size:12px;font-weight:900;text-align:center}.swim{background:var(--blue)}.bike{background:var(--orange)}.run{background:var(--cyan)}.rest{background:var(--green)}.quota{display:grid;gap:10px}.quota div{display:flex;justify-content:space-between;padding:12px;border-radius:14px;background:#f8fafc}.coach-chat{display:grid;gap:12px}.bubble{padding:14px;border-radius:16px;line-height:1.65}.coach{background:#eff6ff;color:#1e40af}.user{background:#fff7ed;color:#9a3412}.bars{display:grid;gap:9px}.bar-row{display:grid;grid-template-columns:64px 1fr 42px;gap:9px;align-items:center;color:var(--muted);font-size:13px}.track{height:10px;border-radius:999px;background:#e2e8f0;overflow:hidden}.track i{display:block;height:100%;border-radius:inherit}.b1 i{width:75%;background:var(--blue)}.b2 i{width:68%;background:var(--orange)}.b3 i{width:54%;background:var(--cyan)}
+    @media(max-width:1020px){.app{grid-template-columns:1fr}.side{position:static;border-right:0;border-bottom:1px solid var(--line)}.nav{grid-template-columns:repeat(3,1fr)}.layout{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.main{padding:18px 16px}.topbar,.decision-head{flex-direction:column}.row,.review{grid-template-columns:1fr}.metrics,.nav{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="side">
+      <div class="brand"><span class="logo">AI</span><span>耐力总教练</span></div>
+      <nav class="nav" aria-label="应用导航">
+        <a class="active" href="#">今日总教练</a><a href="09-initial-plan.html">训练计划</a><a href="#">每日复盘</a><a href="#">目标赛事</a><a href="#">训练数据</a><a href="#">设置</a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div><div class="eyebrow">Today · 2026-06-03 周三</div><h1>今日训练建议</h1><p class="muted">根据昨日训练、睡眠、HRV、静息心率和本周计划，总教练给出今天的最终安排。</p></div>
+        <span class="pill">恢复良好，可训练</span>
+      </header>
+      <section class="layout">
+        <div>
+          <article class="panel decision">
+            <div class="decision-head"><div><div class="eyebrow">Coach Decision</div><h2>保留 Z2 骑行，今晚不加跑步强度</h2><p class="muted">昨日游泳完成质量好，但睡眠只有 6.3 小时。今天适合做低压力有氧骑行，为周末长骑和砖块训练留恢复空间。</p></div><span class="pill">按调整计划执行</span></div>
+            <div class="metrics"><div class="metric"><span>恢复分</span><b>82</b></div><div class="metric"><span>HRV</span><b>56 ms</b></div><div class="metric"><span>静息心率</span><b>49 bpm</b></div><div class="metric"><span>睡眠</span><b>6.3 h</b></div></div>
+            <div class="actions"><a class="btn primary" href="#">确认今天训练</a><a class="btn ghost" href="#">我想追问</a><a class="btn ghost" href="#">导出未来 3 天</a></div>
+          </article>
+          <article class="panel">
+            <div class="eyebrow">Yesterday Review</div><h2>昨日训练评价</h2>
+            <div class="review"><div class="score"><span>82分</span></div><p class="muted">你完成了游泳 1,600m，技术组动作稳定，主项心率没有明显漂移。训练目的达成。由于睡眠偏短，今天不追加额外跑步强度。</p></div>
+          </article>
+          <article class="panel">
+            <div class="eyebrow">Next 3 Days</div><h2>未来 3 天调整</h2>
+            <div class="table">
+              <div class="row"><span class="tag bike">今天</span><b>骑行 Z2 70 分钟，踏频 85-95</b><span>HR 132-148</span></div>
+              <div class="row"><span class="tag run">明天</span><b>轻松跑 45 分钟 + 4x20 秒短时间冲刺跑</b><span>6'10-6'45/km</span></div>
+              <div class="row"><span class="tag swim">后天</span><b>游泳技术 + 有氧 1,800m</b><span>RPE 4-5</span></div>
+            </div>
+          </article>
+        </div>
+        <aside>
+          <section class="panel">
+            <div class="eyebrow">Weekly Load</div><h2>本周分项目负荷</h2>
+            <div class="bars"><div class="bar-row b1"><span>游泳</span><div class="track"><i></i></div><b>75%</b></div><div class="bar-row b2"><span>骑行</span><div class="track"><i></i></div><b>68%</b></div><div class="bar-row b3"><span>跑步</span><div class="track"><i></i></div><b>54%</b></div></div>
+          </section>
+          <section class="panel">
+            <div class="eyebrow">Coach Chat</div><h2>教练解释</h2>
+            <div class="coach-chat"><div class="bubble coach">总教练：今天的关键不是练得更狠，而是保持骑行有氧并保护明天跑步质量。</div><div class="bubble user">如果今晚只有 45 分钟呢？</div><div class="bubble coach">改成室内骑 45 分钟 Z2，取消最后 10 分钟节奏段。</div></div>
+          </section>
+          <section class="panel">
+            <div class="eyebrow">Subscription</div><h2>本月额度</h2>
+            <div class="quota"><div><span>自动复盘</span><b>每日 1 次</b></div><div><span>手动追问</span><b>27 / 30</b></div><div><span>导出能力</span><b>可用</b></div></div>
+          </section>
+        </aside>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

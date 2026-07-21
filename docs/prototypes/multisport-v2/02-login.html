@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>注册登录｜多运动耐力 AI 教练</title>
+  <style>
+    :root{--blue:#2563eb;--orange:#f97316;--bg:#f8fafc;--text:#1e293b;--muted:#64748b;--line:#e2e8f0;--card:#fff}
+    *{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#eff6ff,#f8fafc 52%,#fff7ed);color:var(--text);font-family:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif}.wrap{max-width:1180px;margin:0 auto;padding:28px 24px 56px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:42px}.brand{display:flex;gap:10px;align-items:center;font-weight:900}.logo{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--blue);color:#fff}.top a{color:var(--muted);font-weight:800;text-decoration:none}
+    .layout{display:grid;grid-template-columns:1fr 440px;gap:34px;align-items:center}.eyebrow{color:var(--blue);font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}h1{margin:12px 0;font-size:clamp(38px,5vw,68px);line-height:1.04}.lead{color:var(--muted);font-size:18px;line-height:1.75}.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}.benefit{padding:18px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.8)}.benefit b{display:block;margin-bottom:8px}.benefit span{color:var(--muted);font-size:14px;line-height:1.5}
+    .panel{padding:24px;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:0 22px 60px rgba(15,23,42,.1)}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:5px;border-radius:14px;background:#f1f5f9}.tabs button{border:0;border-radius:10px;padding:11px;background:transparent;font-weight:900;cursor:pointer}.tabs .active{background:#fff;color:var(--blue);box-shadow:0 8px 20px rgba(15,23,42,.08)}label{display:grid;gap:8px;margin-top:18px;font-weight:800}input{height:46px;padding:0 13px;border:1px solid var(--line);border-radius:12px;font:inherit;color:var(--text)}input:focus{outline:3px solid rgba(37,99,235,.16);border-color:var(--blue)}.btn{width:100%;margin-top:20px;padding:14px 18px;border:0;border-radius:12px;background:var(--orange);color:#fff;font-weight:900;cursor:pointer}.oauth{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.oauth button{padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff;font-weight:900;cursor:pointer}.fine{margin:16px 0 0;color:var(--muted);font-size:13px;line-height:1.65}.coach-card{margin-top:18px;padding:16px;border-radius:16px;background:#eff6ff;color:#1e40af}.coach-card b{display:block;margin-bottom:6px}
+    @media(max-width:900px){.layout{grid-template-columns:1fr}.benefits{grid-template-columns:1fr}.wrap{padding:22px 16px}.top{margin-bottom:24px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top"><div class="brand"><span class="logo">AI</span><span>耐力总教练</span></div><a href="01-landing.html">返回首页</a></header>
+    <section class="layout">
+      <div>
+        <div class="eyebrow">Account</div>
+        <h1>保存你的周期计划和每日复盘</h1>
+        <p class="lead">账号用于同步设备授权、训练目标、订阅权益和 AI 教练追问记录。第一版聚焦铁三、跑步、骑行训练建议。</p>
+        <div class="benefits">
+          <div class="benefit"><b>训练计划云端保存</b><span>完整周期、每周计划和单次训练详情持续更新。</span></div>
+          <div class="benefit"><b>每日自动复盘</b><span>每天读取一次训练与恢复数据，给出调整建议。</span></div>
+          <div class="benefit"><b>多赛事目标管理</b><span>支持 A/B/C 赛事优先级和多项目协调。</span></div>
+        </div>
+      </div>
+      <form class="panel" aria-label="登录表单">
+        <div class="tabs"><button class="active" type="button">登录</button><button type="button">注册</button></div>
+        <label>手机号或邮箱<input type="text" value="triathlete@example.com" aria-label="手机号或邮箱"></label>
+        <label>验证码或密码<input type="password" value="123456" aria-label="验证码或密码"></label>
+        <button class="btn" type="button">继续设置训练方向</button>
+        <div class="oauth"><button type="button">微信登录</button><button type="button">邮箱验证码</button></div>
+        <p class="fine">继续代表你同意服务仅提供训练建议，不构成医疗诊断、治疗建议或比赛成绩承诺。</p>
+        <div class="coach-card"><b>接下来你会完成什么？</b><span>选择训练方向、连接运动设备、填写赛事和三项能力信息，然后生成第一版周期计划。</span></div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

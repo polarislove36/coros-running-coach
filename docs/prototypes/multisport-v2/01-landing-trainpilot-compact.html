@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="TrainPilot 是面向铁三、跑步、骑行和多项目训练用户的 AI 多运动训练系统。">
+  <title>TrainPilot｜AI多运动训练系统</title>
+  <style>
+    :root{
+      --blue:#1768ff;
+      --blue-dark:#0d55df;
+      --ink:#061123;
+      --navy:#07172c;
+      --muted:#5f6d83;
+      --line:#dfe7f1;
+      --soft:#f5f8fc;
+      --green:#26b36a;
+      --orange:#ff7a1a;
+      --shadow:0 22px 60px rgba(10,30,60,.12);
+      --content:1210px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:#fff;
+      color:var(--ink);
+      font-family:"Inter","SF Pro Display","Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+      text-rendering:optimizeLegibility;
+    }
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    .container{width:min(var(--content),calc(100% - 44px));margin-inline:auto}
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      height:62px;
+      border-bottom:1px solid #e9eff6;
+      background:rgba(255,255,255,.94);
+      backdrop-filter:blur(18px);
+    }
+    .topbar-inner{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:950}
+    .tp-mark{width:40px;height:28px;display:block}
+    .tp-mark img{width:100%;height:100%;object-fit:contain}
+    .brand span:last-child{font-size:18px;letter-spacing:-.02em}
+    .navlinks{display:flex;align-items:center;gap:42px;color:#263247;font-size:14px;font-weight:760}
+    .navlinks a:hover{color:var(--blue)}
+    .nav-actions{display:flex;align-items:center;gap:20px;font-size:14px;font-weight:850}
+    .btn{
+      display:inline-flex;
+      min-height:48px;
+      align-items:center;
+      justify-content:center;
+      border:1px solid var(--blue);
+      border-radius:10px;
+      padding:0 28px;
+      background:var(--blue);
+      color:#fff;
+      font-size:16px;
+      font-weight:950;
+      line-height:1;
+      white-space:nowrap;
+      box-shadow:0 12px 24px rgba(23,104,255,.18);
+      transition:background .18s ease, transform .18s ease, box-shadow .18s ease;
+    }
+    .btn:hover{background:var(--blue-dark);box-shadow:0 16px 32px rgba(23,104,255,.24)}
+    .btn:active{transform:translateY(1px)}
+    .btn.secondary{background:#fff;color:var(--blue);box-shadow:none}
+    .btn.dark{border-color:rgba(255,255,255,.6);background:transparent;color:#fff;box-shadow:none}
+    .hero{
+      position:relative;
+      overflow:hidden;
+      background:#fff;
+    }
+    .hero-stage{
+      position:relative;
+      min-height:648px;
+      padding-top:54px;
+    }
+    .hero-media{
+      position:absolute;
+      top:0;
+      right:0;
+      width:67%;
+      height:468px;
+      overflow:hidden;
+      background:#d9e8f8;
+      border-bottom-left-radius:4px;
+    }
+    .hero-media img{width:100%;height:100%;object-fit:contain;object-position:center right}
+    .hero-media:after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.86) 17%,rgba(255,255,255,.26) 40%,rgba(255,255,255,0) 62%);
+      pointer-events:none;
+    }
+    .hero-copy{
+      position:relative;
+      z-index:3;
+      width:42%;
+      padding-top:84px;
+    }
+    .hero h1{
+      margin:0;
+      font-size:78px;
+      line-height:.95;
+      letter-spacing:-.065em;
+      font-weight:950;
+    }
+    .hero h2{
+      margin:12px 0 0;
+      font-size:38px;
+      line-height:1.12;
+      letter-spacing:-.04em;
+      font-weight:950;
+    }
+    .slogan{
+      margin:17px 0 0;
+      color:var(--blue);
+      font-size:26px;
+      font-weight:950;
+      letter-spacing:-.03em;
+    }
+    .hero-desc{
+      max-width:410px;
+      margin:24px 0 0;
+      color:#41506a;
+      font-size:17px;
+      line-height:1.72;
+      font-weight:600;
+    }
+    .hero-actions{display:flex;gap:16px;margin-top:30px}
+    .coach-panel{
+      position:absolute;
+      z-index:4;
+      right:54px;
+      bottom:90px;
+      width:690px;
+      display:grid;
+      grid-template-columns:1.42fr .82fr;
+      overflow:hidden;
+      border:1px solid rgba(218,228,240,.95);
+      border-radius:12px;
+      background:rgba(255,255,255,.96);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(16px);
+    }
+    .coach-main{padding:22px 22px 18px}
+    .coach-side{padding:22px 18px;border-left:1px solid var(--line)}
+    .coach-title{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:13px}
+    .coach-title b{font-size:18px}
+    .pill{padding:5px 11px;border-radius:999px;background:#eaf2ff;color:var(--blue);font-size:12px;font-weight:950}
+    .zone-scale{display:grid;grid-template-columns:14% 21% 23% 22% 20%;height:12px;overflow:hidden;border-radius:999px}
+    .zone-scale span:nth-child(1){background:#1e5fff}
+    .zone-scale span:nth-child(2){background:#30bd6f}
+    .zone-scale span:nth-child(3){background:#ffcc3e}
+    .zone-scale span:nth-child(4){background:#ff842c}
+    .zone-scale span:nth-child(5){background:#d90018}
+    .zone-labels{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:9px}
+    .zone-labels div{font-size:11px;color:#748095;line-height:1.35}
+    .zone-labels b{display:block;color:#141d2e;font-size:12px;font-weight:950}
+    .coach-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:21px;border-top:1px solid var(--line);padding-top:16px}
+    .coach-stats div{border-right:1px solid var(--line)}
+    .coach-stats div:last-child{border-right:0}
+    .coach-stats span{display:block;color:#657386;font-size:12px}
+    .coach-stats b{display:block;margin-top:4px;font-size:21px}
+    .next-list{display:grid;gap:9px}
+    .next-item{
+      display:grid;
+      grid-template-columns:40px 1fr;
+      gap:8px;
+      align-items:center;
+      padding:10px 11px;
+      border:1px solid #e8eef6;
+      border-radius:9px;
+      color:#526176;
+      font-size:13px;
+    }
+    .next-item b{color:#111a2b}
+    .proof-strip{
+      position:relative;
+      z-index:6;
+      margin-top:-34px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      box-shadow:0 14px 32px rgba(8,30,58,.06);
+    }
+    .proof-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+    .proof{
+      display:grid;
+      grid-template-columns:44px 1fr;
+      align-items:center;
+      gap:12px;
+      min-height:82px;
+      padding:18px 20px;
+      border-left:1px solid #edf2f8;
+    }
+    .proof:first-child{border-left:0}
+    .proof img{width:40px;height:40px;object-fit:contain}
+    .proof b{display:block;margin-bottom:4px;font-size:15px}
+    .proof span{display:block;color:#66758a;font-size:12px;line-height:1.35}
+    .section{padding:44px 0}
+    .section-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:22px}
+    .section-heading h2{margin:0;font-size:34px;line-height:1.08;letter-spacing:-.045em}
+    .section-heading p{max-width:410px;margin:0;color:#5f6d83;font-size:15px;line-height:1.6}
+    .daily-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+    .daily-card{
+      min-height:300px;
+      border:1px solid #d8e2ee;
+      border-radius:14px;
+      background:#fff;
+      box-shadow:0 14px 30px rgba(7,24,48,.06);
+      overflow:hidden;
+    }
+    .daily-card.dark{background:#071a31;color:#fff;border-color:#0b213b}
+    .daily-inner{padding:22px}
+    .daily-inner h3{margin:0 0 7px;font-size:23px;letter-spacing:-.03em}
+    .daily-inner p{margin:0 0 18px;color:#66758a;font-size:14px;line-height:1.55}
+    .daily-card.dark p{color:#c8d5e5}
+    .mini-zone{height:12px;border-radius:999px;overflow:hidden;display:grid;grid-template-columns:14% 21% 23% 22% 20%;margin-top:14px}
+    .mini-zone i:nth-child(1){background:#1e5fff}
+    .mini-zone i:nth-child(2){background:#30bd6f}
+    .mini-zone i:nth-child(3){background:#ffcc3e}
+    .mini-zone i:nth-child(4){background:#ff842c}
+    .mini-zone i:nth-child(5){background:#d90018}
+    .metric-row{display:grid;grid-template-columns:repeat(3,1fr);margin-top:28px;border-top:1px solid #e5edf6}
+    .metric-row div{padding-top:16px;border-left:1px solid #e5edf6}
+    .metric-row div:first-child{border-left:0}
+    .metric-row span{display:block;color:#66758a;font-size:12px}
+    .metric-row b{display:block;margin-top:4px;color:#121b2d;font-size:21px}
+    .calendar-mini{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:18px}
+    .day{display:grid;gap:7px}
+    .day span{color:#a9b8cd;font-size:11px;text-align:center}
+    .block{height:22px;border-radius:4px;background:#33465f}
+    .block.swim{background:#4da3ff}
+    .block.bike{background:#80ca72}
+    .block.run{background:#ff8731}
+    .block.rest{background:#a9b1bf}
+    .review-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
+    .review-stats div{padding:12px 10px;border-radius:8px;background:#102844}
+    .review-stats span{display:block;color:#aebbd0;font-size:11px}
+    .review-stats b{display:block;margin-top:4px;color:#fff;font-size:17px}
+    .review-line{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-top:1px solid rgba(255,255,255,.12);color:#d9e3f0;font-size:13px}
+    .system-section{padding-top:14px}
+    .system-board{
+      display:grid;
+      grid-template-columns:1.08fr .74fr .54fr;
+      min-height:390px;
+      overflow:hidden;
+      border:1px solid #cfd9e6;
+      border-radius:14px;
+      background:#fff;
+    }
+    .system-photo{position:relative;min-height:390px;background:#d5e2ef}
+    .system-photo img{width:100%;height:100%;object-fit:cover}
+    .system-photo-copy{
+      position:absolute;
+      inset:0;
+      padding:30px 34px;
+      background:linear-gradient(180deg,rgba(5,21,39,.68),rgba(5,21,39,.18) 50%,rgba(5,21,39,0));
+      color:#fff;
+    }
+    .system-photo-copy h2{margin:0;font-size:33px;line-height:1.12;letter-spacing:-.04em}
+    .system-photo-copy p{margin:11px 0 0;color:#e7eff8;font-weight:800}
+    .decision-layer{padding:30px 28px;background:var(--navy);color:#fff}
+    .decision-layer h3{margin:0;font-size:25px;letter-spacing:-.035em}
+    .decision-layer>p{margin:13px 0 18px;color:#c8d4e4;font-size:14px;line-height:1.7}
+    .decision-row{
+      display:grid;
+      grid-template-columns:28px 1fr auto;
+      gap:12px;
+      align-items:center;
+      padding:15px 0;
+      border-top:1px solid rgba(255,255,255,.16);
+      font-size:14px;
+    }
+    .decision-row img{width:24px;height:24px;object-fit:contain}
+    .sport-stack{display:grid;grid-template-rows:repeat(3,1fr)}
+    .sport-item{
+      display:grid;
+      grid-template-columns:48px 1fr;
+      gap:15px;
+      align-content:center;
+      padding:25px 24px;
+      border-top:1px solid #cfd9e6;
+    }
+    .sport-item:first-child{border-top:0}
+    .sport-item img{width:42px;height:42px;object-fit:contain}
+    .sport-item h3{margin:0 0 6px;font-size:21px}
+    .sport-item p{margin:0;color:#5f6d83;font-size:13px;line-height:1.55}
+    .steps-price{
+      display:grid;
+      grid-template-columns:1fr 360px;
+      gap:24px;
+      align-items:stretch;
+    }
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+      border:1px solid #d8e2ee;
+      border-radius:14px;
+      padding:20px;
+      background:#fff;
+    }
+    .step img{width:100%;aspect-ratio:138/62;object-fit:cover;border-radius:9px;background:#d9e4f1}
+    .step b{display:block;margin-top:12px;font-size:15px}
+    .step span{display:block;margin-top:4px;color:#66758a;font-size:12px;line-height:1.45}
+    .step-num{
+      display:inline-grid;
+      place-items:center;
+      width:24px;
+      height:24px;
+      margin-right:6px;
+      border-radius:50%;
+      background:var(--blue);
+      color:#fff;
+      font-size:12px;
+      font-weight:950;
+    }
+    .price-card{
+      display:grid;
+      align-content:space-between;
+      min-height:245px;
+      border-radius:14px;
+      padding:26px;
+      background:linear-gradient(145deg,#07172c,#0a2547);
+      color:#fff;
+      box-shadow:var(--shadow);
+    }
+    .price-card h3{margin:0;font-size:22px}
+    .price{margin:16px 0 0;font-size:48px;font-weight:950;letter-spacing:-.05em}
+    .price small{font-size:18px}
+    .price-card p{margin:10px 0 0;color:#bfd0e6;font-size:14px;line-height:1.6}
+    .price-actions{display:flex;gap:12px;margin-top:22px}
+    .footer-note{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:25px 0 34px;
+      color:#69788c;
+      font-size:13px;
+    }
+    .footer-note b{color:#0d1b31}
+    @media(max-width:1080px){
+      .navlinks{gap:24px}
+      .hero-stage{min-height:760px}
+      .hero-media{width:100%;height:420px}
+      .hero-copy{width:55%;padding-top:56px}
+      .coach-panel{left:22px;right:22px;bottom:62px;width:auto}
+      .proof-grid{grid-template-columns:repeat(2,1fr)}
+      .proof:nth-child(3){border-left:0;border-top:1px solid #edf2f8}
+      .proof:nth-child(4){border-top:1px solid #edf2f8}
+      .daily-grid{grid-template-columns:1fr}
+      .system-board{grid-template-columns:1fr}
+      .system-photo{min-height:390px}
+      .sport-stack{grid-template-columns:repeat(3,1fr);grid-template-rows:none}
+      .sport-item{border-top:1px solid #cfd9e6;border-left:1px solid #cfd9e6}
+      .sport-item:first-child{border-left:0}
+      .steps-price{grid-template-columns:1fr}
+    }
+    @media(max-width:760px){
+      .container{width:min(100% - 28px,var(--content))}
+      .topbar{height:56px}
+      .navlinks,.nav-actions a:first-child{display:none}
+      .brand span:last-child{font-size:16px}
+      .hero-stage{min-height:auto;padding:28px 0 24px}
+      .hero-media{position:relative;width:100%;height:260px;border-radius:12px}
+      .hero-media:after{background:linear-gradient(180deg,#fff 0%,rgba(255,255,255,0) 38%)}
+      .hero-copy{width:100%;padding-top:22px}
+      .hero h1{font-size:52px}
+      .hero h2{font-size:28px}
+      .slogan{font-size:22px}
+      .hero-desc{max-width:none;font-size:16px}
+      .hero-actions{display:grid;grid-template-columns:1fr 1fr}
+      .coach-panel{position:relative;left:auto;right:auto;bottom:auto;width:100%;margin-top:18px;grid-template-columns:1fr}
+      .coach-side{border-left:0;border-top:1px solid var(--line)}
+      .proof-strip{margin-top:10px}
+      .proof-grid{grid-template-columns:1fr}
+      .proof{border-left:0;border-top:1px solid #edf2f8}
+      .proof:first-child{border-top:0}
+      .section{padding:34px 0}
+      .section-heading{display:block}
+      .section-heading h2{font-size:29px}
+      .section-heading p{margin-top:10px}
+      .metric-row,.review-stats{grid-template-columns:1fr 1fr}
+      .system-photo-copy h2{font-size:27px}
+      .sport-stack{grid-template-columns:1fr}
+      .sport-item{border-left:0}
+      .steps{grid-template-columns:1fr 1fr}
+      .price-actions{display:grid}
+      .footer-note{display:block;line-height:1.8}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner container">
+      <a class="brand" href="#"><span class="tp-mark"><img src="assets/reference/ref-logo-tp.png" alt=""></span><span>TrainPilot</span></a>
+      <nav class="navlinks" aria-label="主导航">
+        <a href="#daily">产品体验</a>
+        <a href="#system">训练系统</a>
+        <a href="#start">价格</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="02-login.html">登录</a>
+        <a class="btn" href="02-login.html">开始体验</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-stage container">
+        <div class="hero-media">
+          <img src="assets/trainpilot-hero-athletes.png" alt="游泳、骑行和跑步运动员">
+        </div>
+        <div class="hero-copy">
+          <h1>TrainPilot</h1>
+          <h2>AI多运动训练系统</h2>
+          <p class="slogan">让每次训练，都有下一步</p>
+          <p class="hero-desc">读取运动设备数据，结合恢复状态和目标，生成周期计划，并每天调整后续训练。</p>
+          <div class="hero-actions">
+            <a class="btn" href="02-login.html">开始体验</a>
+            <a class="btn secondary" href="#daily">查看示例</a>
+          </div>
+        </div>
+        <div class="coach-panel" aria-label="今日训练建议示例">
+          <div class="coach-main">
+            <div class="coach-title"><b>今天建议：骑行 Z2 70分钟</b><span class="pill">建议执行</span></div>
+            <div class="zone-scale"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="zone-labels">
+              <div><b>Z1 热身</b>101-118 bpm</div>
+              <div><b>Z2 有氧</b>118-132 bpm</div>
+              <div><b>Z3 节奏</b>132-148 bpm</div>
+              <div><b>Z4 阈值</b>149-165 bpm</div>
+              <div><b>Z5 无氧</b>165+ bpm</div>
+            </div>
+            <div class="coach-stats">
+              <div><span>建议踏频</span><b>85-95</b></div>
+              <div><span>推荐功率</span><b>130-155w</b></div>
+              <div><span>预计TSS</span><b>62</b></div>
+            </div>
+          </div>
+          <div class="coach-side">
+            <div class="coach-title"><b>未来3天</b></div>
+            <div class="next-list">
+              <div class="next-item"><span>周二</span><b>节奏跑45分钟</b></div>
+              <div class="next-item"><span>周三</span><b>休息</b></div>
+              <div class="next-item"><span>周四</span><b>轻松跑60分钟</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="proof-strip container">
+        <div class="proof-grid">
+          <div class="proof"><img src="assets/reference/ref-proof-multisport.png" alt=""><div><b>多运动计划</b><span>跑步、骑行、游泳、铁三</span></div></div>
+          <div class="proof"><img src="assets/reference/ref-proof-data.png" alt=""><div><b>读取设备数据</b><span>训练、恢复、睡眠和心率</span></div></div>
+          <div class="proof"><img src="assets/reference/ref-proof-plan.png" alt=""><div><b>生成周期计划</b><span>按目标和能力安排训练</span></div></div>
+          <div class="proof"><img src="assets/reference/ref-proof-progress.png" alt=""><div><b>每日动态调整</b><span>给出未来3天建议</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="daily" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>每天打开，先看结论</h2>
+          <p>不是堆数据，而是把训练、恢复和目标变成今天能执行的安排。</p>
+        </div>
+        <div class="daily-grid">
+          <article class="daily-card">
+            <div class="daily-inner">
+              <h3>今日建议</h3>
+              <p>给出训练项目、强度区间和执行理由。</p>
+              <div class="coach-title"><b>骑行 Z2 70分钟</b><span class="pill">建议执行</span></div>
+              <div class="mini-zone"><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="metric-row">
+                <div><span>踏频</span><b>85-95</b></div>
+                <div><span>功率</span><b>130-155w</b></div>
+                <div><span>TSS</span><b>62</b></div>
+              </div>
+            </div>
+          </article>
+          <article class="daily-card dark">
+            <div class="daily-inner">
+              <h3>周期计划</h3>
+              <p>把游泳、骑行、跑步和恢复放进同一个节奏。</p>
+              <div class="calendar-mini">
+                <div class="day"><span>一</span><i class="block bike"></i><i class="block swim"></i></div>
+                <div class="day"><span>二</span><i class="block run"></i></div>
+                <div class="day"><span>三</span><i class="block swim"></i></div>
+                <div class="day"><span>四</span><i class="block bike"></i><i class="block run"></i></div>
+                <div class="day"><span>五</span><i class="block rest"></i></div>
+                <div class="day"><span>六</span><i class="block bike" style="height:66px"></i></div>
+                <div class="day"><span>日</span><i class="block run" style="height:52px"></i></div>
+              </div>
+            </div>
+          </article>
+          <article class="daily-card dark">
+            <div class="daily-inner">
+              <h3>每日复盘</h3>
+              <p>评价上一练，并判断下一步是否需要降级。</p>
+              <div class="review-stats">
+                <div><span>恢复分</span><b>82</b></div>
+                <div><span>HRV</span><b>56ms</b></div>
+                <div><span>静息心率</span><b>49</b></div>
+                <div><span>睡眠</span><b>6.3h</b></div>
+              </div>
+              <div style="margin-top:14px">
+                <div class="review-line"><span>周二</span><b>节奏跑45分钟</b></div>
+                <div class="review-line"><span>周三</span><b>休息</b></div>
+                <div class="review-line"><span>周四</span><b>轻松跑60分钟</b></div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="system" class="section system-section">
+      <div class="container">
+        <div class="system-board">
+          <div class="system-photo">
+            <img src="assets/trainpilot-system-athletes.png" alt="海岸公路上的骑行和跑步训练">
+            <div class="system-photo-copy">
+              <h2>一个系统，协调你的所有训练</h2>
+              <p>读取数据 · 判断状态 · 生成计划 · 每日调整</p>
+            </div>
+          </div>
+          <div class="decision-layer">
+            <h3>多运动训练决策层</h3>
+            <p>把赛事优先级、训练负荷、恢复风险和未来几天安排放在一起判断。</p>
+            <div class="decision-row"><img src="assets/reference/ref-decision-a.png" alt=""><span>赛事优先级</span><b>已纳入</b></div>
+            <div class="decision-row"><img src="assets/reference/ref-decision-volume.png" alt=""><span>训练量增长</span><b>受控</b></div>
+            <div class="decision-row"><img src="assets/reference/ref-decision-recovery.png" alt=""><span>恢复风险</span><b>每日检查</b></div>
+            <div class="decision-row"><img src="assets/reference/ref-decision-adjust.png" alt=""><span>未来3天调整</span><b>每天生成</b></div>
+          </div>
+          <div class="sport-stack">
+            <article class="sport-item"><img src="assets/reference/ref-sport-swim.png" alt=""><div><h3>游泳</h3><p>技术、有氧、间歇。</p></div></article>
+            <article class="sport-item"><img src="assets/reference/ref-sport-bike.png" alt=""><div><h3>骑行</h3><p>功率、心率、长骑。</p></div></article>
+            <article class="sport-item"><img src="assets/reference/ref-sport-run.png" alt=""><div><h3>跑步</h3><p>跑量、配速、强度。</p></div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="start" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>四步开始训练</h2>
+          <p>首版从设备数据出发，给出训练建议，不承诺医疗诊断或比赛成绩。</p>
+        </div>
+        <div class="steps-price">
+          <div class="steps">
+            <article class="step"><img src="assets/reference/ref-step-1.png" alt="选择训练方向"><b><span class="step-num">1</span>选择方向</b><span>跑步、骑行、铁三或多项目。</span></article>
+            <article class="step"><img src="assets/reference/ref-step-2.png" alt="连接设备"><b><span class="step-num">2</span>连接设备</b><span>授权后自动读取训练数据。</span></article>
+            <article class="step"><img src="assets/reference/ref-step-3.png" alt="补充目标"><b><span class="step-num">3</span>补充目标</b><span>填写赛事、时间和偏好。</span></article>
+            <article class="step"><img src="assets/reference/ref-step-5.png" alt="每日调整"><b><span class="step-num">4</span>每日调整</b><span>复盘上一练，更新下一步。</span></article>
+          </div>
+          <aside class="price-card">
+            <div>
+              <h3>简单透明的定价</h3>
+              <div class="price">¥19.9<small>/月</small></div>
+              <p>每日1次自动复盘，多次手动追问。支持导出表格、图片和日历。</p>
+            </div>
+            <div class="price-actions">
+              <a class="btn" href="02-login.html">开始体验</a>
+              <a class="btn dark" href="#daily">查看示例</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container footer-note">
+    <span><b>TrainPilot</b> AI多运动训练系统</span>
+    <span>训练建议服务，不替代医生、康复师或线下教练判断。</span>
+  </footer>
+</body>
+</html>

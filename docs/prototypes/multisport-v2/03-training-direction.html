@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>选择训练方向｜多运动耐力 AI 教练</title>
+  <style>
+    :root{--blue:#2563eb;--orange:#f97316;--cyan:#0891b2;--green:#16a34a;--purple:#7c3aed;--bg:#f8fafc;--text:#1e293b;--muted:#64748b;--line:#e2e8f0;--card:#fff}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif}.wrap{max-width:1180px;margin:0 auto;padding:28px 24px 56px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}.brand{display:flex;gap:10px;align-items:center;font-weight:900}.logo{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--blue);color:#fff}.top a{color:var(--muted);font-weight:800;text-decoration:none}.eyebrow{color:var(--blue);font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}h1{margin:10px 0 10px;font-size:clamp(34px,5vw,58px);line-height:1.08}.lead{max-width:800px;color:var(--muted);font-size:18px;line-height:1.75}
+    .steps{display:flex;gap:8px;margin:24px 0}.step{height:8px;flex:1;border-radius:999px;background:#e2e8f0}.step.on{background:var(--blue)}.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:24px}.option{position:relative;min-height:270px;padding:20px;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:0 14px 40px rgba(15,23,42,.06);cursor:pointer;transition:.2s}.option:hover,.option.active{border-color:var(--blue);box-shadow:0 18px 48px rgba(37,99,235,.12)}.option.active:after{content:"已推荐";position:absolute;right:14px;top:14px;padding:6px 9px;border-radius:999px;background:#eff6ff;color:var(--blue);font-size:12px;font-weight:900}.icon{width:48px;height:48px;border-radius:14px;margin-bottom:16px;display:grid;place-items:center;color:#fff}.tri{background:linear-gradient(135deg,var(--blue),var(--orange))}.run{background:var(--cyan)}.bike{background:var(--orange)}.combo{background:linear-gradient(135deg,var(--cyan),var(--orange))}.multi{background:var(--purple)}.option h2{margin:0 0 10px;font-size:22px}.option p{margin:0;color:var(--muted);line-height:1.6}.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}.chip{padding:6px 8px;border-radius:999px;background:#f1f5f9;color:#475569;font-size:12px;font-weight:800}.footer{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-top:28px;padding:18px;border:1px solid var(--line);border-radius:18px;background:#fff}.btn{padding:13px 18px;border:0;border-radius:12px;background:var(--orange);color:#fff;font-weight:900;cursor:pointer}.hint{color:var(--muted);line-height:1.6}
+    @media(max-width:1080px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:640px){.grid{grid-template-columns:1fr}.footer{align-items:flex-start;flex-direction:column}.wrap{padding:22px 16px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top"><div class="brand"><span class="logo">AI</span><span>耐力总教练</span></div><a href="02-login.html">上一步</a></header>
+    <div class="eyebrow">Step 1 / 5</div>
+    <h1>你希望总教练优先服务哪个训练方向？</h1>
+    <p class="lead">选择后，问卷和计划结构会随之变化。铁三用户会进入游泳、骑行、跑步三项能力采集；跑步或骑行用户则只展示相关专项。</p>
+    <div class="steps" aria-hidden="true"><span class="step on"></span><span class="step"></span><span class="step"></span><span class="step"></span><span class="step"></span></div>
+    <section class="grid" aria-label="训练方向选项">
+      <article class="option active"><div class="icon tri">T</div><h2>完整铁三周期</h2><p>适合小铁、标铁、半程、大铁备赛，三项训练和砖块训练统一协调。</p><div class="chips"><span class="chip">游泳</span><span class="chip">骑行</span><span class="chip">跑步</span></div></article>
+      <article class="option"><div class="icon run">R</div><h2>跑步专项</h2><p>适合 5K、10K、半马、全马和日常跑步能力提升。</p><div class="chips"><span class="chip">配速</span><span class="chip">心率</span><span class="chip">跑量</span></div></article>
+      <article class="option"><div class="icon bike">B</div><h2>骑行专项</h2><p>适合公路车、长距离骑行、FTP 提升和骑行赛事备赛。</p><div class="chips"><span class="chip">功率</span><span class="chip">踏频</span><span class="chip">补给</span></div></article>
+      <article class="option"><div class="icon combo">RB</div><h2>跑步 + 骑行</h2><p>适合同时跑步和骑车，但暂时没有完整铁三目标的人。</p><div class="chips"><span class="chip">双项目</span><span class="chip">恢复协调</span></div></article>
+      <article class="option"><div class="icon multi">M</div><h2>多赛事组合</h2><p>适合一年里有多个项目目标，需要 A/B/C 赛事优先级管理。</p><div class="chips"><span class="chip">A 赛</span><span class="chip">B 赛</span><span class="chip">C 赛</span></div></article>
+    </section>
+    <section class="footer"><p class="hint">推荐默认选择“完整铁三周期”，因为它能覆盖游泳、骑行、跑步和多目标冲突场景。</p><a class="btn" href="04-device-connect.html">继续连接运动设备</a></section>
+  </main>
+</body>
+</html>

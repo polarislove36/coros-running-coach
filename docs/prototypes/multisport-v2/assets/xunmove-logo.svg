@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="XUNMOVE 训动标志">
+  <rect width="64" height="64" rx="12" fill="#161a1b"/>
+  <g transform="rotate(-28 32 32)">
+    <rect x="9" y="18" width="46" height="6" rx="3" fill="#ef5b36"/>
+    <rect x="15" y="29" width="40" height="6" rx="3" fill="#ffffff"/>
+    <rect x="21" y="40" width="34" height="6" rx="3" fill="#ef5b36"/>
+  </g>
+</svg>

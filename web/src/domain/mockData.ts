@@ -1,21 +1,21 @@
 import type { CorosDailySnapshot } from "./types";
 
 export const mockCorosSnapshot: CorosDailySnapshot = {
-  date: "2026-05-27",
-  recoveryScore: 76,
-  hrvMs: 47,
-  hrvBaselineMs: 50,
-  restingHr: 61,
-  restingHrBaseline: 59,
-  sleepScore: 69,
+  date: "2026-07-10",
+  recoveryScore: 82,
+  hrvMs: 56,
+  hrvBaselineMs: 52,
+  restingHr: 49,
+  restingHrBaseline: 50,
+  sleepScore: 74,
   sleepHours: 6.3,
-  trainingLoadRatio: 1.08,
+  trainingLoadRatio: 1.12,
   latestWorkout: {
-    date: "2026-05-26",
-    name: "轻松跑",
-    distanceKm: 8.2,
-    avgPace: "6'12/km",
-    avgHr: 138,
-    intensity: "easy"
+    date: "2026-07-09",
+    name: "节奏跑",
+    distanceKm: 9.6,
+    avgPace: "5'46/km",
+    avgHr: 151,
+    intensity: "quality"
   }
 };

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>多赛事目标设置｜多运动耐力 AI 教练</title>
+  <style>
+    :root{--blue:#2563eb;--orange:#f97316;--cyan:#0891b2;--green:#16a34a;--purple:#7c3aed;--bg:#f8fafc;--text:#1e293b;--muted:#64748b;--line:#e2e8f0}
+    *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fff,var(--bg));color:var(--text);font-family:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif}.wrap{max-width:1180px;margin:0 auto;padding:28px 24px 56px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}.brand{display:flex;gap:10px;align-items:center;font-weight:900}.logo{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--blue);color:#fff}.top a{color:var(--muted);font-weight:800;text-decoration:none}.eyebrow{color:var(--blue);font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}h1{margin:10px 0;font-size:clamp(34px,5vw,58px);line-height:1.08}.lead{max-width:830px;color:var(--muted);font-size:18px;line-height:1.75}.layout{display:grid;grid-template-columns:1fr 340px;gap:22px;margin-top:24px}.panel,.event{padding:22px;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:0 14px 40px rgba(15,23,42,.06)}
+    .timeline{display:grid;gap:14px}.event{display:grid;grid-template-columns:88px 1fr 140px;gap:16px;align-items:center}.date{display:grid;place-items:center;height:78px;border-radius:16px;background:#eff6ff;color:var(--blue);font-weight:900}.date span{display:block;font-size:13px}.event h2{margin:0 0 6px;font-size:22px}.event p{margin:0;color:var(--muted);line-height:1.55}.priority{justify-self:end;padding:8px 10px;border-radius:999px;font-weight:900}.a{background:#fff7ed;color:#c2410c}.b{background:#ecfeff;color:#0e7490}.c{background:#f3e8ff;color:#6d28d9}.chart{margin-top:18px;padding:18px;border:1px solid var(--line);border-radius:18px;background:#f8fafc}.bar{display:grid;gap:8px}.bar-row{display:grid;grid-template-columns:82px 1fr 42px;gap:10px;align-items:center;color:var(--muted);font-size:13px}.track{height:11px;border-radius:999px;background:#e2e8f0;overflow:hidden}.track i{display:block;height:100%;border-radius:inherit}.tri i{width:72%;background:var(--orange)}.run i{width:42%;background:var(--cyan)}.bike i{width:28%;background:var(--blue)}.coach{padding:16px;border-radius:16px;background:#eff6ff;color:#1e40af;line-height:1.65}.btn{display:inline-block;margin-top:20px;padding:13px 18px;border-radius:12px;background:var(--orange);color:#fff;text-decoration:none;font-weight:900}.add{display:block;margin-top:14px;text-align:center;padding:13px;border:1px dashed var(--blue);border-radius:14px;color:var(--blue);font-weight:900;text-decoration:none;background:#eff6ff}
+    @media(max-width:880px){.layout,.event{grid-template-columns:1fr}.priority{justify-self:start}.wrap{padding:22px 16px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top"><div class="brand"><span class="logo">AI</span><span>耐力总教练</span></div><a href="06-intake.html">上一步</a></header>
+    <div class="eyebrow">Step 5 / 5</div>
+    <h1>让总教练知道哪些比赛最重要</h1>
+    <p class="lead">多运动用户常常不止一个目标。A/B/C 优先级会决定训练负荷分配，避免铁三、跑步、骑行计划互相抢恢复。</p>
+    <section class="layout">
+      <div class="timeline">
+        <article class="event"><div class="date">11.08<span>2026</span></div><div><h2>标准铁三赛</h2><p>目标：完赛并跑步段稳定输出。需要完整三项周期和砖块训练。</p></div><span class="priority a">A 赛</span></article>
+        <article class="event"><div class="date">10.18<span>2026</span></div><div><h2>半程马拉松</h2><p>目标：1:45 左右。作为跑步能力检验，但不破坏铁三主线。</p></div><span class="priority b">B 赛</span></article>
+        <article class="event"><div class="date">09.20<span>2026</span></div><div><h2>90km 公路骑行</h2><p>目标：稳定长骑和补给练习。可作为铁三骑行专项支持。</p></div><span class="priority c">C 赛</span></article>
+        <a class="add" href="#">添加另一个赛事目标</a>
+      </div>
+      <aside class="panel">
+        <div class="eyebrow">Coach Allocation</div><h2>训练资源分配建议</h2>
+        <div class="chart">
+          <div class="bar">
+            <div class="bar-row tri"><span>铁三 A 赛</span><div class="track"><i></i></div><b>72%</b></div>
+            <div class="bar-row run"><span>半马 B 赛</span><div class="track"><i></i></div><b>42%</b></div>
+            <div class="bar-row bike"><span>骑行 C 赛</span><div class="track"><i></i></div><b>28%</b></div>
+          </div>
+        </div>
+        <p class="coach">总教练判断：半马和骑行赛事可以服务铁三主线，但不能在同一周堆叠跑步阈值课、长骑和长跑。</p>
+        <a class="btn" href="08-plan-generating.html">开始生成周期计划</a>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>

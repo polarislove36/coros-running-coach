@@ -1,5 +1,7 @@
 export type WorkoutIntensity = "rest" | "easy" | "quality" | "long";
 
+export type SportType = "run" | "bike" | "trail" | "swim" | "rest";
+
 export type ReadinessLevel = "ready" | "caution" | "stop";
 
 export interface LatestWorkout {
@@ -40,6 +42,19 @@ export interface TrainingDay {
   pace: string;
   heartRate: string;
   purpose: string;
+  sport?: SportType;
+  durationMinutes?: number;
+  status?: "planned" | "completed" | "adjusted";
+  stages?: TrainingStage[];
+}
+
+export interface TrainingStage {
+  name: string;
+  durationMinutes: number;
+  heartRateZone?: string | null;
+  powerZone?: string | null;
+  paceZone?: string | null;
+  instructions: string[];
 }
 
 export type OnboardingStepId = "landing" | "login" | "coros-auth" | "intake";
@@ -61,4 +76,34 @@ export interface IntakeDraft {
   wantsStrength: boolean;
   acceptsCrossTraining: boolean;
   recentIssue: string;
+}
+
+export interface RaceGoal {
+  id: string;
+  name: string;
+  date: string;
+  eventType?: string;
+  discipline: string;
+  priority: "A" | "B" | "C";
+  goal: string;
+  status: "active" | "support";
+}
+
+export interface DeviceConnection {
+  id: string;
+  name: string;
+  status: "connected" | "available" | "planned";
+  lastSync?: string;
+  dataScopes: string[];
+}
+
+export interface ReviewRecord {
+  date: string;
+  sport: SportType;
+  title: string;
+  summary: string;
+  score: number;
+  load: number;
+  duration: string;
+  decision: string;
 }

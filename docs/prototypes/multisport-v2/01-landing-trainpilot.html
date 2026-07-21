@@ -1,0 +1,900 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TrainPilot｜AI多运动训练系统</title>
+  <style>
+    :root{
+      --ink:#111827;
+      --muted:#5f6b7a;
+      --soft:#f6f8fb;
+      --panel:#ffffff;
+      --line:#dbe3ee;
+      --accent:#2457ff;
+      --accent-dark:#173bcc;
+      --accent-soft:#e9eeff;
+      --success:#167a4a;
+      --warning:#a15c00;
+      --danger:#b42318;
+      --shadow:0 24px 70px rgba(17,24,39,.10);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at 82% 4%, rgba(36,87,255,.14), transparent 28%),
+        linear-gradient(180deg,#fff 0%,#f8fafc 56%,#eef3f8 100%);
+      color:var(--ink);
+      font-family:"Satoshi","Geist","Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+      text-rendering:optimizeLegibility;
+    }
+    a{color:inherit}
+    .nav{
+      position:sticky;
+      top:14px;
+      z-index:20;
+      max-width:1220px;
+      height:68px;
+      margin:14px auto 0;
+      padding:0 14px 0 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      border:1px solid rgba(219,227,238,.86);
+      border-radius:18px;
+      background:rgba(255,255,255,.88);
+      backdrop-filter:blur(16px);
+      box-shadow:0 16px 42px rgba(17,24,39,.07);
+    }
+    .brand{display:flex;align-items:center;gap:11px;font-weight:900;white-space:nowrap}
+    .mark{
+      width:36px;
+      height:36px;
+      display:grid;
+      place-items:center;
+      border-radius:11px;
+      background:var(--ink);
+      color:#fff;
+      letter-spacing:-.04em;
+      font-weight:950;
+    }
+    .navlinks{display:flex;align-items:center;gap:4px;min-width:0}
+    .navlinks a{
+      padding:10px 11px;
+      border-radius:11px;
+      color:#526071;
+      font-size:14px;
+      font-weight:760;
+      text-decoration:none;
+      white-space:nowrap;
+      transition:background .18s ease,color .18s ease;
+    }
+    .navlinks a:hover{background:#f1f5f9;color:var(--ink)}
+    .nav-actions{display:flex;align-items:center;gap:10px}
+    .login{
+      padding:10px 12px;
+      color:#394557;
+      font-weight:820;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
+      padding:0 17px;
+      border:1px solid var(--accent);
+      border-radius:999px;
+      background:var(--accent);
+      color:#fff;
+      font-weight:900;
+      text-decoration:none;
+      white-space:nowrap;
+      box-shadow:0 12px 30px rgba(36,87,255,.22);
+      transition:transform .16s ease,box-shadow .16s ease,background .16s ease;
+    }
+    .cta:hover{background:var(--accent-dark);box-shadow:0 16px 36px rgba(36,87,255,.28)}
+    .cta:active{transform:translateY(1px)}
+    .ghost{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
+      padding:0 17px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fff;
+      color:var(--ink);
+      font-weight:900;
+      text-decoration:none;
+      white-space:nowrap;
+      transition:border-color .16s ease,background .16s ease;
+    }
+    .ghost:hover{border-color:#b8c4d5;background:#f8fafc}
+    .wrap{max-width:1220px;margin:0 auto;padding:0 24px}
+    .hero{
+      min-height:calc(100dvh - 88px);
+      display:grid;
+      grid-template-columns:minmax(0,1.02fr) minmax(430px,.98fr);
+      align-items:center;
+      gap:42px;
+      padding:44px 24px 54px;
+    }
+    .eyebrow{
+      width:max-content;
+      max-width:100%;
+      padding:8px 11px;
+      border:1px solid rgba(36,87,255,.18);
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent-dark);
+      font-size:12px;
+      font-weight:900;
+    }
+    h1{
+      max-width:760px;
+      margin:18px 0 18px;
+      font-size:clamp(46px,6vw,82px);
+      line-height:.98;
+      letter-spacing:-.055em;
+    }
+    .lead{
+      max-width:610px;
+      margin:0;
+      color:var(--muted);
+      font-size:19px;
+      line-height:1.7;
+    }
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+    .device-frame{
+      position:relative;
+      min-height:610px;
+      padding:18px;
+      border:1px solid rgba(219,227,238,.9);
+      border-radius:30px;
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(247,250,255,.92)),
+        #fff;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .device-frame:before{
+      content:"";
+      position:absolute;
+      inset:-80px -120px auto auto;
+      width:300px;
+      height:300px;
+      border-radius:50%;
+      background:rgba(36,87,255,.12);
+      filter:blur(8px);
+    }
+    .product-shell{
+      position:relative;
+      display:grid;
+      gap:14px;
+      height:100%;
+    }
+    .mock-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      padding:16px;
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:#fff;
+    }
+    .mock-top b{display:block;font-size:17px}
+    .mock-top span{display:block;color:var(--muted);font-size:13px;margin-top:3px}
+    .status{
+      padding:8px 10px;
+      border-radius:999px;
+      background:#eaf8f0;
+      color:var(--success);
+      font-size:12px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .decision-card{
+      padding:18px;
+      border-radius:24px;
+      background:var(--ink);
+      color:#fff;
+    }
+    .decision-card span{color:#b8c7ff;font-size:13px;font-weight:850}
+    .decision-card h2{margin:8px 0 8px;font-size:28px;line-height:1.16;letter-spacing:-.03em}
+    .decision-card p{margin:0;color:#d8ddea;line-height:1.6}
+    .tri-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .tri-card{
+      padding:13px;
+      border:1px solid var(--line);
+      border-radius:17px;
+      background:#fff;
+      min-width:0;
+    }
+    .tri-card b{display:block;margin-bottom:8px;font-size:14px}
+    .bar{height:8px;border-radius:999px;background:#e5eaf2;overflow:hidden}
+    .bar i{display:block;height:100%;border-radius:inherit;background:var(--accent)}
+    .tri-card small{display:block;margin-top:8px;color:var(--muted);line-height:1.35}
+    .plan-preview{
+      display:grid;
+      gap:9px;
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:#fff;
+    }
+    .plan-row{
+      display:grid;
+      grid-template-columns:58px 1fr auto;
+      gap:10px;
+      align-items:center;
+      min-width:0;
+      padding:11px 0;
+      border-top:1px solid #edf1f6;
+    }
+    .plan-row:first-child{border-top:0}
+    .tag{
+      padding:6px 8px;
+      border-radius:999px;
+      background:#eef3ff;
+      color:var(--accent-dark);
+      font-size:12px;
+      font-weight:900;
+      text-align:center;
+      white-space:nowrap;
+    }
+    .plan-row b{font-size:14px;line-height:1.35}
+    .plan-row span:last-child{color:var(--muted);font-size:13px;white-space:nowrap}
+    .proof{
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      background:#fff;
+    }
+    .proof-inner{
+      max-width:1220px;
+      margin:0 auto;
+      padding:22px 24px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+    }
+    .proof-item b{display:block;font-size:15px}
+    .proof-item span{display:block;margin-top:4px;color:var(--muted);font-size:13px;line-height:1.45}
+    section{scroll-margin-top:96px}
+    .section{max-width:1220px;margin:0 auto;padding:82px 24px}
+    .section h2{
+      margin:0 0 18px;
+      font-size:clamp(34px,4vw,56px);
+      line-height:1.04;
+      letter-spacing:-.04em;
+    }
+    .section-lead{
+      max-width:720px;
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.75;
+      margin:0 0 28px;
+    }
+    .problem-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .problem-main{
+      padding:28px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:#fff;
+      box-shadow:0 18px 46px rgba(17,24,39,.06);
+    }
+    .problem-main h3{margin:0 0 12px;font-size:29px;letter-spacing:-.03em}
+    .problem-main p{margin:0;color:var(--muted);line-height:1.75;font-size:17px}
+    .problem-list{display:grid;gap:12px}
+    .problem-item{
+      padding:18px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:#fff;
+    }
+    .problem-item b{display:block;margin-bottom:6px}
+    .problem-item span{color:var(--muted);line-height:1.55}
+    .coach-system{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .system-card{
+      padding:24px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:#fff;
+      box-shadow:0 18px 46px rgba(17,24,39,.05);
+    }
+    .system-card.master{
+      min-height:520px;
+      background:
+        radial-gradient(circle at 80% 10%,rgba(36,87,255,.16),transparent 34%),
+        var(--ink);
+      color:#fff;
+    }
+    .system-card.master p{color:#d8ddea}
+    .system-card h3{margin:0 0 10px;font-size:26px;letter-spacing:-.03em}
+    .system-card p{margin:0;color:var(--muted);line-height:1.7}
+    .system-list{margin-top:22px;display:grid;gap:10px}
+    .system-list div{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      padding:12px 0;
+      border-top:1px solid rgba(255,255,255,.16);
+      color:#e8edf7;
+    }
+    .specialty-stack{
+      display:grid;
+      grid-template-rows:repeat(3,1fr);
+      gap:18px;
+      min-height:520px;
+    }
+    .specialty-stack .system-card{
+      min-height:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .gallery{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:18px;
+    }
+    .screen{
+      padding:18px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:#fff;
+      box-shadow:0 18px 46px rgba(17,24,39,.06);
+    }
+    .screen.large{min-height:500px}
+    .screen h3{margin:0 0 8px;font-size:24px}
+    .screen p{margin:0 0 16px;color:var(--muted);line-height:1.6}
+    .mini-dashboard{
+      display:grid;
+      grid-template-columns:1fr 260px;
+      gap:14px;
+      min-height:370px;
+    }
+    .mock-panel{
+      padding:16px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:#f8fafc;
+    }
+    .mock-panel.dark{background:var(--ink);color:#fff}
+    .mock-panel.dark p{color:#d8ddea}
+    .metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+    .metric{
+      padding:13px;
+      border:1px solid #edf1f6;
+      border-radius:15px;
+      background:#fff;
+    }
+    .metric span{display:block;color:var(--muted);font-size:12px}
+    .metric b{display:block;margin-top:5px;font-size:21px}
+    .zone-workout{
+      display:grid;
+      gap:12px;
+      min-height:170px;
+      margin-top:16px;
+      padding:16px;
+      border-radius:18px;
+      background:#fff;
+      color:var(--ink);
+    }
+    .zone-workout b{font-size:20px;letter-spacing:-.03em}
+    .zone-workout p{margin:0;color:#526071;font-size:14px;line-height:1.55}
+    .intensity-strip{
+      display:grid;
+      grid-template-columns:18% 64% 18%;
+      height:18px;
+      overflow:hidden;
+      border-radius:999px;
+      background:#e5eaf2;
+      box-shadow:inset 0 0 0 1px rgba(17,24,39,.05);
+    }
+    .intensity-strip span:nth-child(1){background:#bfdbfe}
+    .intensity-strip span:nth-child(2){background:var(--accent)}
+    .intensity-strip span:nth-child(3){background:#fed7aa}
+    .zone-legend{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:8px;
+    }
+    .zone-legend div{
+      padding:9px 10px;
+      border:1px solid #edf1f6;
+      border-radius:12px;
+      background:#f8fafc;
+      font-size:12px;
+      line-height:1.35;
+      color:#526071;
+    }
+    .zone-legend strong{display:block;color:var(--ink);font-size:13px}
+    .workout-meta{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:8px;
+    }
+    .workout-meta span{
+      padding:8px 10px;
+      border-radius:12px;
+      background:#f8fafc;
+      color:#526071;
+      font-size:12px;
+    }
+    .stack{display:grid;gap:14px}
+    .flow{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:12px;
+      counter-reset:step;
+    }
+    .flow-card{
+      position:relative;
+      min-height:185px;
+      padding:18px;
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:#fff;
+    }
+    .flow-card:before{
+      counter-increment:step;
+      content:"0" counter(step);
+      display:block;
+      margin-bottom:18px;
+      color:var(--accent);
+      font-weight:950;
+    }
+    .flow-card b{display:block;margin-bottom:8px;font-size:18px}
+    .flow-card span{color:var(--muted);line-height:1.55;font-size:14px}
+    .audience{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
+    .audience-card{
+      padding:26px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:#fff;
+      box-shadow:0 18px 46px rgba(17,24,39,.05);
+    }
+    .audience-card h3{margin:0 0 14px;font-size:27px}
+    .check-list{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+    .check-list li{padding:12px 0;border-top:1px solid #edf1f6;color:#465466;line-height:1.55}
+    .plan-section{
+      display:grid;
+      grid-template-columns:1fr 350px;
+      gap:18px;
+      align-items:start;
+    }
+    .table-card{
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:#fff;
+      box-shadow:0 18px 46px rgba(17,24,39,.06);
+      overflow:hidden;
+    }
+    .table-head{
+      padding:22px 24px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:center;
+    }
+    .table-head h3{margin:0;font-size:25px}
+    .table-scroll{overflow:auto}
+    table{width:100%;min-width:820px;border-collapse:collapse}
+    th,td{padding:15px 16px;border-bottom:1px solid #edf1f6;text-align:left;vertical-align:top;line-height:1.5}
+    th{background:#f8fafc;color:#526071;font-size:13px}
+    td{font-size:14px}
+    .sport-label{
+      display:inline-block;
+      padding:6px 9px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent-dark);
+      font-weight:900;
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .coach-note{
+      padding:24px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:var(--ink);
+      color:#fff;
+      box-shadow:0 18px 46px rgba(17,24,39,.08);
+    }
+    .coach-note h3{margin:0 0 10px;font-size:25px}
+    .coach-note p{margin:0;color:#d8ddea;line-height:1.75}
+    .pricing{
+      display:grid;
+      grid-template-columns:.9fr 1.1fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .price-card{
+      padding:28px;
+      border:1px solid rgba(36,87,255,.22);
+      border-radius:30px;
+      background:#fff;
+      box-shadow:0 24px 70px rgba(36,87,255,.12);
+    }
+    .price-card strong{display:block;margin:16px 0 6px;font-size:58px;letter-spacing:-.06em}
+    .price-card small{color:var(--muted)}
+    .feature-matrix{
+      display:grid;
+      gap:10px;
+      padding:28px;
+      border:1px solid var(--line);
+      border-radius:30px;
+      background:#fff;
+    }
+    .feature-row{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      padding:13px 0;
+      border-top:1px solid #edf1f6;
+    }
+    .feature-row:first-child{border-top:0}
+    .feature-row span{color:var(--muted)}
+    .faq{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    details{
+      padding:18px 20px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#fff;
+    }
+    summary{cursor:pointer;font-weight:900}
+    details p{margin:12px 0 0;color:var(--muted);line-height:1.65}
+    .final{
+      padding:54px 28px;
+      border-radius:34px;
+      background:
+        radial-gradient(circle at 72% 20%,rgba(36,87,255,.20),transparent 30%),
+        var(--ink);
+      color:#fff;
+      text-align:left;
+      overflow:hidden;
+    }
+    .final h2{max-width:760px;color:#fff}
+    .final p{max-width:690px;color:#d8ddea}
+    .final .ghost{background:transparent;border-color:rgba(255,255,255,.28);color:#fff}
+    .footer{
+      max-width:1220px;
+      margin:0 auto;
+      padding:30px 24px 42px;
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      color:#64748b;
+      border-top:1px solid var(--line);
+    }
+    .footer-links{display:flex;flex-wrap:wrap;gap:14px}
+    .footer a{text-decoration:none;color:#64748b}
+    @media(max-width:1040px){
+      .navlinks{display:none}
+      .hero,.problem-grid,.coach-system,.gallery,.plan-section,.pricing{grid-template-columns:1fr}
+      .hero{min-height:auto;padding-top:46px}
+      .device-frame{min-height:560px}
+      .system-card.master,.specialty-stack{min-height:auto}
+      .flow{grid-template-columns:repeat(2,1fr)}
+      .mini-dashboard{grid-template-columns:1fr}
+    }
+    @media(max-width:760px){
+      .nav{height:64px;margin:10px 12px}
+      .login{display:none}
+      .wrap,.hero,.section{padding-left:16px;padding-right:16px}
+      h1{font-size:44px}
+      .lead{font-size:17px}
+      .hero-actions{display:grid;grid-template-columns:1fr}
+      .cta,.ghost{width:100%}
+      .device-frame{min-height:auto;padding:12px;border-radius:24px}
+      .tri-grid,.proof-inner,.flow,.audience,.faq{grid-template-columns:1fr}
+      .zone-legend,.workout-meta{grid-template-columns:1fr}
+      .plan-row{grid-template-columns:54px 1fr}
+      .plan-row span:last-child{grid-column:2;white-space:normal}
+      .section{padding-top:58px;padding-bottom:58px}
+      .footer{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="主导航">
+    <a class="brand" href="#"><span class="mark">TP</span><span>TrainPilot</span></a>
+    <div class="navlinks">
+      <a href="#value">产品价值</a>
+      <a href="#screens">示例界面</a>
+      <a href="#workflow">使用流程</a>
+      <a href="#plan">示例计划</a>
+      <a href="#pricing">价格</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-actions">
+      <a class="login" href="02-login.html">登录</a>
+      <a class="cta" href="02-login.html">开始体验</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero wrap">
+      <div>
+        <div class="eyebrow">AI多运动训练系统</div>
+        <h1>让每次训练，都有下一步</h1>
+        <p class="lead">面向铁三、跑步、骑行和多项目训练用户，读取运动数据，每天调整后续安排。</p>
+        <div class="hero-actions">
+          <a class="cta" href="02-login.html">生成计划</a>
+          <a class="ghost" href="#screens">查看示例</a>
+        </div>
+      </div>
+      <aside class="device-frame" aria-label="TrainPilot 产品界面预览">
+        <div class="product-shell">
+          <div class="mock-top">
+            <div><b>今日训练决策</b><span>2026年6月3日 周三</span></div>
+            <span class="status">可训练</span>
+          </div>
+          <div class="decision-card">
+            <span>TrainPilot 判断</span>
+            <h2>保留骑行有氧，跑步强度顺延</h2>
+            <p>睡眠偏短但恢复分正常。今天做低压力骑行，保护明天跑步质量。</p>
+          </div>
+          <div class="tri-grid">
+            <div class="tri-card"><b>游泳</b><div class="bar"><i style="width:72%"></i></div><small>技术课保留</small></div>
+            <div class="tri-card"><b>骑行</b><div class="bar"><i style="width:86%"></i></div><small>Z2 70分钟</small></div>
+            <div class="tri-card"><b>跑步</b><div class="bar"><i style="width:58%"></i></div><small>强度课顺延</small></div>
+          </div>
+          <div class="plan-preview">
+            <div class="plan-row"><span class="tag">今天</span><b>骑行 Z2 70分钟，踏频 85-95</b><span>HR 132-148</span></div>
+            <div class="plan-row"><span class="tag">明天</span><b>轻松跑 45分钟 + 4x20秒短时间冲刺跑</b><span>6'10-6'45/km</span></div>
+            <div class="plan-row"><span class="tag">后天</span><b>游泳技术 + 有氧 1,800m</b><span>RPE 4-5</span></div>
+            <div class="plan-row"><span class="tag">周末</span><b>长骑 + 砖块跑，练习换项节奏</b><span>2h + 20min</span></div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="proof" aria-label="产品信任点">
+      <div class="proof-inner">
+        <div class="proof-item"><b>完整铁三周期</b><span>覆盖游泳、骑行、跑步和砖块训练。</span></div>
+        <div class="proof-item"><b>支持单项专项</b><span>跑步、骑行用户也能生成专项计划。</span></div>
+        <div class="proof-item"><b>首批支持高驰</b><span>后续可扩展更多运动设备。</span></div>
+        <div class="proof-item"><b>只做训练建议</b><span>不做医疗诊断，不承诺比赛成绩。</span></div>
+      </div>
+    </section>
+
+    <section id="value" class="section">
+      <h2>多运动训练最难的，不是多练几项</h2>
+      <p class="section-lead">真正的问题是训练负荷、恢复、比赛目标和时间安排之间会互相影响。TrainPilot 的核心是把这些冲突变成明确的训练决策。</p>
+      <div class="problem-grid">
+        <article class="problem-main">
+          <h3>它不是运动记录 App，也不是固定训练课表。</h3>
+          <p>普通课表告诉你“本周该练什么”。TrainPilot 会进一步判断：你昨天练完之后，今天是否还适合照原计划执行；如果不适合，应该改成什么训练，以及为什么这么改。</p>
+        </article>
+        <div class="problem-list">
+          <div class="problem-item"><b>铁三不是三项相加</b><span>长骑、长跑、游泳和力量课会争夺同一套恢复资源。</span></div>
+          <div class="problem-item"><b>多目标会冲突</b><span>同一阶段可能同时有铁三、半马和骑行赛事。</span></div>
+          <div class="problem-item"><b>身体状态每天变化</b><span>HRV、睡眠、静息心率和训练负荷会改变当天训练选择。</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>一个系统，协调你的所有训练</h2>
+      <div class="coach-system">
+        <article class="system-card master">
+          <h3>多运动训练决策层</h3>
+          <p>负责周期结构、赛事优先级、训练负荷、恢复风险和未来几天的调整。</p>
+          <div class="system-list">
+            <div><span>A/B/C 赛事优先级</span><b>已纳入</b></div>
+            <div><span>周训练量增长</span><b>受控</b></div>
+            <div><span>恢复和疲劳风险</span><b>每日检查</b></div>
+          </div>
+        </article>
+        <div class="specialty-stack">
+          <article class="system-card"><h3>游泳训练</h3><p>根据泳池条件、泳量基础和技术短板，安排技术、有氧和间歇泳课。</p></article>
+          <article class="system-card"><h3>骑行训练</h3><p>结合功率、心率和长骑能力，安排 Z2 有氧、节奏骑、长骑和补给练习。</p></article>
+          <article class="system-card"><h3>跑步训练</h3><p>控制跑量、长跑、配速和强度课，避免在骑行疲劳后叠加强刺激。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="screens" class="section">
+      <h2>用户看到的是具体决策，不是数据堆叠</h2>
+      <p class="section-lead">Landing Page 里优先展示产品界面，让用户直接看到系统会如何安排训练。</p>
+      <div class="gallery">
+        <article class="screen large">
+          <h3>今日训练首页</h3>
+          <p>先给结论，再给数据依据和未来 3 天调整。</p>
+          <div class="mini-dashboard">
+            <div class="mock-panel dark">
+              <h3>今天建议：骑行 Z2 70分钟</h3>
+              <p>原因：睡眠偏短，跑步强度顺延，保留低压力有氧。</p>
+              <div class="zone-workout" aria-label="骑行训练强度和心率区间示例">
+                <b>Ae(2)-70</b>
+                <p>70分钟有氧骑。主体保持 Z2，末段允许短时间进入 Z3 下沿。</p>
+                <div class="intensity-strip" aria-hidden="true"><span></span><span></span><span></span></div>
+                <div class="zone-legend">
+                  <div><strong>Z1 热身</strong>10分钟 · 118-132 bpm</div>
+                  <div><strong>Z2 有氧</strong>55分钟 · 132-148 bpm</div>
+                  <div><strong>Z3 下沿</strong>5分钟 · 149-156 bpm</div>
+                </div>
+                <div class="workout-meta"><span>踏频 85-95</span><span>功率 130-155W</span><span>预计 62 TSS</span></div>
+              </div>
+            </div>
+            <div class="mock-panel">
+              <h3>身体状态</h3>
+              <div class="metric-grid">
+                <div class="metric"><span>恢复分</span><b>82</b></div>
+                <div class="metric"><span>HRV</span><b>56ms</b></div>
+                <div class="metric"><span>静息心率</span><b>49</b></div>
+                <div class="metric"><span>睡眠</span><b>6.3h</b></div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <div class="stack">
+          <article class="screen">
+            <h3>完整周期计划</h3>
+            <p>基础期、专项期、比赛模拟期、减量期，按周展开。</p>
+            <div class="plan-preview">
+              <div class="plan-row"><span class="tag">基础</span><b>建立三项训练频率</b><span>6周</span></div>
+              <div class="plan-row"><span class="tag">专项</span><b>长骑、长跑和泳量提升</b><span>8周</span></div>
+              <div class="plan-row"><span class="tag">减量</span><b>保留刺激，降低总量</b><span>3周</span></div>
+            </div>
+          </article>
+          <article class="screen">
+            <h3>每日复盘</h3>
+            <p>判断上一次训练是否达成目的，并决定是否调整后续安排。</p>
+            <div class="decision-card">
+              <span>复盘结论</span>
+              <h2>训练目的达成，明天不加量</h2>
+              <p>心率稳定，睡眠不足。保持计划但降低跑步刺激。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow" class="section">
+      <h2>从设备数据到每日训练安排</h2>
+      <div class="flow">
+        <div class="flow-card"><b>选择方向</b><span>铁三、跑步、骑行、多项目或日常提升。</span></div>
+        <div class="flow-card"><b>连接设备</b><span>第一版首批支持高驰，后续可扩展更多设备。</span></div>
+        <div class="flow-card"><b>补充目标</b><span>填写赛事、训练时间、能力锚点和现实限制。</span></div>
+        <div class="flow-card"><b>生成周期</b><span>输出阶段、周计划、单次训练结构和强度建议。</span></div>
+        <div class="flow-card"><b>每日调整</b><span>自动复盘，并调整未来几天训练安排。</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>适合认真训练，但不想每天重新排课的人</h2>
+      <div class="audience">
+        <article class="audience-card">
+          <h3>适合</h3>
+          <ul class="check-list">
+            <li>有铁三、跑步、骑行训练目标的人。</li>
+            <li>同时训练多个项目，需要协调恢复的人。</li>
+            <li>想根据身体状态动态调整训练的人。</li>
+            <li>希望把设备数据变成可执行建议的人。</li>
+          </ul>
+        </article>
+        <article class="audience-card">
+          <h3>不适合</h3>
+          <ul class="check-list">
+            <li>需要医疗诊断或康复治疗建议的人。</li>
+            <li>希望系统承诺 PB 或比赛成绩的人。</li>
+            <li>完全不记录训练数据，也不愿填写目标的人。</li>
+            <li>只想获得泛泛鼓励，而不想执行计划的人。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="plan" class="section">
+      <h2>示例：一周多运动训练计划</h2>
+      <div class="plan-section">
+        <article class="table-card">
+          <div class="table-head">
+            <h3>第1周｜基础期｜总训练量8.5小时</h3>
+            <span class="tag">标准铁三</span>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>日期</th><th>项目</th><th>训练内容</th><th>参考强度</th><th>目的</th></tr></thead>
+              <tbody>
+                <tr><td>周一</td><td><span class="sport-label">恢复</span></td><td>休息或轻松拉伸10分钟</td><td>无</td><td>进入新周期，优先恢复。</td></tr>
+                <tr><td>周二</td><td><span class="sport-label">游泳</span></td><td>技术+有氧1600m</td><td>RPE 4-5</td><td>恢复水感，建立泳量。</td></tr>
+                <tr><td>周三</td><td><span class="sport-label">骑行</span></td><td>Z2有氧骑70分钟</td><td>HR 132-148</td><td>建立有氧底盘。</td></tr>
+                <tr><td>周四</td><td><span class="sport-label">跑步</span></td><td>轻松跑45分钟+4x20秒短时间冲刺跑</td><td>6'10-6'45/km</td><td>保持跑姿和节奏感。</td></tr>
+                <tr><td>周六</td><td><span class="sport-label">骑行</span></td><td>长骑2小时，末段稳定节奏</td><td>Z2到Z3下沿</td><td>练习长时间输出和补给。</td></tr>
+                <tr><td>周日</td><td><span class="sport-label">砖块</span></td><td>骑行45分钟+下车轻松跑20分钟</td><td>跑步HR 140-152</td><td>适应骑跑转换。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+        <aside class="coach-note">
+          <h3>TrainPilot 会解释为什么这样排</h3>
+          <p>第一周不急着堆强度，先稳定三项训练频率。长骑后只安排轻量砖块跑，不追求速度，避免早期跑步疲劳过高。</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="pricing" class="section">
+      <h2>简单定价，先验证训练价值</h2>
+      <div class="pricing">
+        <article class="price-card">
+          <h3>TrainPilot 月度会员</h3>
+          <strong>¥19.9</strong>
+          <small>首版内测价，可根据后续套餐调整。</small>
+          <div class="hero-actions">
+            <a class="cta" href="02-login.html">开始体验</a>
+          </div>
+        </article>
+        <article class="feature-matrix">
+          <div class="feature-row"><b>完整周期训练计划</b><span>包含</span></div>
+          <div class="feature-row"><b>每日1次自动复盘</b><span>包含</span></div>
+          <div class="feature-row"><b>未来几天动态调整</b><span>包含</span></div>
+          <div class="feature-row"><b>手动追问额度</b><span>若干次</span></div>
+          <div class="feature-row"><b>表格、图片、日历导出</b><span>包含</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <h2>常见问题</h2>
+      <div class="faq">
+        <details open><summary>没有目标赛事也能用吗？</summary><p>可以。你可以选择日常提升、基础有氧、跑步专项或骑行专项，系统会按训练目标生成计划。</p></details>
+        <details><summary>第一版支持哪些设备？</summary><p>第一版首批支持高驰数据接入。后续可扩展佳明、松拓、华为等设备。</p></details>
+        <details><summary>它会保证我 PB 吗？</summary><p>不会。TrainPilot 只提供训练建议和计划调整，不承诺比赛成绩。</p></details>
+        <details><summary>这是医疗建议吗？</summary><p>不是。出现胸痛、头晕、异常心率、持续疼痛或明显无力时，应停止训练并咨询专业人士。</p></details>
+        <details><summary>可以只做跑步或骑行吗？</summary><p>可以。TrainPilot 支持铁三、多项目，也支持单项跑步或骑行训练。</p></details>
+        <details><summary>训练计划每天都会变吗？</summary><p>计划不会随意变化。系统会根据恢复、睡眠、训练负荷和完成情况，在必要时调整后续训练。</p></details>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="final">
+        <h2>不止记录运动，更会安排训练</h2>
+        <p class="section-lead">TrainPilot 读取运动设备数据，结合训练历史、恢复状态和个人目标，生成周期计划，并每天调整后续训练安排。</p>
+        <div class="hero-actions">
+          <a class="cta" href="02-login.html">生成计划</a>
+          <a class="ghost" href="#screens">查看示例</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div><b>TrainPilot</b><br>AI多运动训练系统</div>
+    <div class="footer-links">
+      <a href="#">用户协议</a>
+      <a href="#">隐私政策</a>
+      <a href="#">免责声明</a>
+      <a href="#">联系我们</a>
+      <a href="#">备案信息</a>
+    </div>
+  </footer>
+</body>
+</html>

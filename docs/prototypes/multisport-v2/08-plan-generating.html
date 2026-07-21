@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>计划生成中｜多运动耐力 AI 教练</title>
+  <style>
+    :root{--blue:#2563eb;--orange:#f97316;--cyan:#0891b2;--green:#16a34a;--purple:#7c3aed;--bg:#f8fafc;--text:#1e293b;--muted:#64748b;--line:#e2e8f0}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 0,rgba(37,99,235,.16),transparent 38%),var(--bg);color:var(--text);font-family:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif}.wrap{max-width:1120px;margin:0 auto;padding:42px 24px 56px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:38px}.brand{display:flex;gap:10px;align-items:center;font-weight:900}.logo{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--blue);color:#fff}.top a{color:var(--muted);font-weight:800;text-decoration:none}.eyebrow{color:var(--blue);font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;text-align:center}h1{margin:12px auto;font-size:clamp(34px,5vw,60px);line-height:1.08;text-align:center;max-width:760px}.lead{max-width:760px;margin:0 auto;color:var(--muted);font-size:18px;line-height:1.75;text-align:center}
+    .agents{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}.agent{position:relative;padding:22px;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:0 18px 50px rgba(15,23,42,.08);overflow:hidden}.agent:before{content:"";position:absolute;inset:0 0 auto;height:5px;background:var(--blue)}.agent.swim:before{background:var(--blue)}.agent.bike:before{background:var(--orange)}.agent.run:before{background:var(--cyan)}.agent.master:before{background:var(--purple)}.ring{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;margin-bottom:18px;background:conic-gradient(var(--blue) 86%,#e2e8f0 0)}.bike .ring{background:conic-gradient(var(--orange) 78%,#e2e8f0 0)}.run .ring{background:conic-gradient(var(--cyan) 82%,#e2e8f0 0)}.master .ring{background:conic-gradient(var(--purple) 91%,#e2e8f0 0)}.ring span{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:#fff;font-weight:900}.agent h2{margin:0 0 8px}.agent p{margin:0;color:var(--muted);line-height:1.6}.log{margin-top:24px;padding:22px;border:1px solid var(--line);border-radius:22px;background:#0f172a;color:#e2e8f0;box-shadow:0 18px 50px rgba(15,23,42,.12)}.log h2{margin:0 0 14px;color:#fff}.log-row{display:grid;grid-template-columns:120px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid rgba(226,232,240,.14)}.log-row:first-of-type{border-top:0}.log-row span{color:#93c5fd}.log-row small{color:#94a3b8}.btn{display:block;width:max-content;margin:26px auto 0;padding:14px 20px;border-radius:12px;background:var(--orange);color:#fff;text-decoration:none;font-weight:900}
+    @media(max-width:900px){.agents{grid-template-columns:repeat(2,1fr)}.log-row{grid-template-columns:1fr}.wrap{padding:28px 16px}}@media(max-width:560px){.agents{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top"><div class="brand"><span class="logo">AI</span><span>耐力总教练</span></div><a href="07-race-goals.html">上一步</a></header>
+    <div class="eyebrow">Plan Generation</div>
+    <h1>正在生成完整铁三周期训练计划</h1>
+    <p class="lead">总教练先确定周期结构和赛事优先级，再让游泳、骑行、跑步专项教练生成候选训练，最后协调恢复和训练负荷。</p>
+    <section class="agents">
+      <article class="agent master"><div class="ring"><span>91%</span></div><h2>总教练</h2><p>协调 A/B/C 赛事、周训练量、恢复周和减量期。</p></article>
+      <article class="agent swim"><div class="ring"><span>86%</span></div><h2>游泳教练</h2><p>生成技术、有氧和间歇泳课，匹配泳池可用时间。</p></article>
+      <article class="agent bike"><div class="ring"><span>78%</span></div><h2>骑行教练</h2><p>计算 Z2 长骑、节奏骑、功率区间和补给练习。</p></article>
+      <article class="agent run"><div class="ring"><span>82%</span></div><h2>跑步教练</h2><p>控制跑量、配速、长跑和铁三跑步段专项。</p></article>
+    </section>
+    <section class="log" aria-label="生成过程">
+      <h2>教练协作日志</h2>
+      <div class="log-row"><span>读取数据</span><b>最近 42 天训练记录已完成归一化</b><small>训练负荷正常</small></div>
+      <div class="log-row"><span>周期规划</span><b>距离 A 赛 23 周，采用基础期、专项期、模拟期、减量期</b><small>已完成</small></div>
+      <div class="log-row"><span>冲突检查</span><b>避免长骑次日安排跑步阈值课，保留砖块训练窗口</b><small>进行中</small></div>
+      <div class="log-row"><span>输出校验</span><b>检查周训练量增长、恢复周、强度比例和训练描述完整性</b><small>排队中</small></div>
+    </section>
+    <a class="btn" href="09-initial-plan.html">查看生成结果</a>
+  </main>
+</body>
+</html>

@@ -10,3 +10,4 @@ dist/
 web/.dev-server/
 web/node_modules/
 web/dist/
+.tools/

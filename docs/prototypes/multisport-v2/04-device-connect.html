@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>连接运动设备｜多运动耐力 AI 教练</title>
+  <style>
+    :root{--blue:#2563eb;--orange:#f97316;--green:#16a34a;--bg:#f8fafc;--text:#1e293b;--muted:#64748b;--line:#e2e8f0;--card:#fff}
+    *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#eff6ff,var(--bg));color:var(--text);font-family:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif}.wrap{max-width:1180px;margin:0 auto;padding:28px 24px 56px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}.brand{display:flex;gap:10px;align-items:center;font-weight:900}.logo{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--blue);color:#fff}.top a{color:var(--muted);font-weight:800;text-decoration:none}.eyebrow{color:var(--blue);font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}h1{margin:10px 0;font-size:clamp(34px,5vw,58px);line-height:1.08}.lead{max-width:830px;color:var(--muted);font-size:18px;line-height:1.75}
+    .layout{display:grid;grid-template-columns:1fr 370px;gap:22px;margin-top:26px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.device{padding:20px;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:0 14px 40px rgba(15,23,42,.06)}.device.active{border-color:rgba(22,163,74,.55);box-shadow:0 18px 46px rgba(22,163,74,.12)}.device .head{display:flex;justify-content:space-between;gap:12px;align-items:center}.mark{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:#eff6ff;color:var(--blue);font-weight:900}.device h2{margin:16px 0 8px}.device p{margin:0;color:var(--muted);line-height:1.6}.badge{padding:6px 9px;border-radius:999px;background:#f1f5f9;color:#475569;font-size:12px;font-weight:900}.active .badge{background:#dcfce7;color:#166534}.panel{padding:22px;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:0 14px 40px rgba(15,23,42,.06)}.scope{display:grid;gap:10px;margin-top:16px}.scope div{display:flex;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--line);border-radius:14px;background:#f8fafc}.scope b{font-size:14px}.scope span{color:var(--muted);font-size:13px}.btn{display:block;margin-top:18px;text-align:center;padding:14px 18px;border-radius:12px;background:var(--orange);color:#fff;text-decoration:none;font-weight:900}.ghost{display:block;margin-top:10px;text-align:center;padding:13px 18px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--text);text-decoration:none;font-weight:900}.notice{margin-top:18px;padding:14px;border-radius:14px;background:#fff7ed;color:#9a3412;line-height:1.6}
+    @media(max-width:900px){.layout,.grid{grid-template-columns:1fr}.wrap{padding:22px 16px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top"><div class="brand"><span class="logo">AI</span><span>耐力总教练</span></div><a href="03-training-direction.html">上一步</a></header>
+    <div class="eyebrow">Step 2 / 5</div>
+    <h1>连接运动设备，让教练先读数据再提问</h1>
+    <p class="lead">设备数据用于理解近期训练量、恢复、睡眠、心率和不同项目完成情况。第一版首批支持高驰，后续计划接入更多手表和码表。</p>
+    <section class="layout">
+      <div class="grid">
+        <article class="device active"><div class="head"><span class="mark">C</span><span class="badge">当前支持</span></div><h2>COROS / 高驰</h2><p>用于读取跑步、骑行、游泳训练记录，以及恢复、HRV、睡眠和训练负荷。</p></article>
+        <article class="device"><div class="head"><span class="mark">G</span><span class="badge">计划支持</span></div><h2>Garmin / 佳明</h2><p>后续版本申请接入，用于扩展铁三和骑行用户覆盖。</p></article>
+        <article class="device"><div class="head"><span class="mark">S</span><span class="badge">计划支持</span></div><h2>Suunto / 松拓</h2><p>面向越野、耐力和铁三用户，后续作为多设备来源接入。</p></article>
+        <article class="device"><div class="head"><span class="mark">H</span><span class="badge">计划支持</span></div><h2>华为 / OPPO 等</h2><p>待开放能力和数据合规路径确认后接入。</p></article>
+      </div>
+      <aside class="panel">
+        <div class="eyebrow">Data Scope</div>
+        <h2>会读取哪些数据</h2>
+        <div class="scope">
+          <div><b>训练记录</b><span>项目、距离、时长、配速/功率</span></div>
+          <div><b>心率区间</b><span>Z1-Z5、平均和最大心率</span></div>
+          <div><b>恢复状态</b><span>HRV、静息心率、睡眠</span></div>
+          <div><b>训练负荷</b><span>近期负荷、疲劳和趋势</span></div>
+        </div>
+        <a class="btn" href="05-device-status.html">连接高驰账号</a>
+        <a class="ghost" href="06-intake.html">暂时跳过，先用问卷体验</a>
+        <p class="notice">数据只用于训练建议和计划调整。用户可在设置中取消授权、删除数据或注销账号。</p>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>
