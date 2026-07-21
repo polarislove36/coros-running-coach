@@ -37,7 +37,8 @@ $logDirectory = Join-Path $projectRoot ".tools"
 New-Item -ItemType Directory -Force -Path $logDirectory | Out-Null
 $stdout = Join-Path $logDirectory "hosted-api.stdout.log"
 $stderr = Join-Path $logDirectory "hosted-api.stderr.log"
-$tunnelLog = Join-Path $logDirectory "cloudflared-quick.log"
+$tunnelStdout = Join-Path $logDirectory "cloudflared-quick.stdout.log"
+$tunnelStderr = Join-Path $logDirectory "cloudflared-quick.stderr.log"
 $shareUrlFile = Join-Path $logDirectory "share-url.txt"
 
 $existingListener = Get-NetTCPConnection -LocalPort $Port -State Listen -ErrorAction SilentlyContinue
@@ -63,22 +64,27 @@ try {
     }
     if (-not $ready) { throw "The local service did not start. Check $stderr" }
 
-    Remove-Item -LiteralPath $tunnelLog -Force -ErrorAction SilentlyContinue
+    Remove-Item -LiteralPath $tunnelStdout -Force -ErrorAction SilentlyContinue
+    Remove-Item -LiteralPath $tunnelStderr -Force -ErrorAction SilentlyContinue
     Remove-Item -LiteralPath $shareUrlFile -Force -ErrorAction SilentlyContinue
     $tunnel = Start-Process -FilePath $cloudflared -ArgumentList @(
         "tunnel",
-        "--url", "http://127.0.0.1:$Port",
-        "--logfile", $tunnelLog,
-        "--loglevel", "info"
-    ) -WindowStyle Hidden -PassThru
+        "--url", "http://127.0.0.1:$Port"
+    ) -WindowStyle Hidden -RedirectStandardOutput $tunnelStdout -RedirectStandardError $tunnelStderr -PassThru
 
     $shareUrl = $null
     foreach ($attempt in 1..30) {
         if ($tunnel.HasExited) {
-            throw "Cloudflare Tunnel exited before a public URL was created. Check $tunnelLog"
+            throw "Cloudflare Tunnel exited before a public URL was created. Check $tunnelStderr"
         }
-        if (Test-Path $tunnelLog) {
-            $logText = Get-Content -LiteralPath $tunnelLog -Raw
+        $logText = ""
+        if (Test-Path $tunnelStdout) {
+            $logText += Get-Content -LiteralPath $tunnelStdout -Raw
+        }
+        if (Test-Path $tunnelStderr) {
+            $logText += Get-Content -LiteralPath $tunnelStderr -Raw
+        }
+        if ($logText) {
             $match = [regex]::Match($logText, "https://[a-z0-9-]+\.trycloudflare\.com")
             if ($match.Success) {
                 $shareUrl = $match.Value
@@ -88,7 +94,7 @@ try {
         Start-Sleep -Seconds 1
     }
     if (-not $shareUrl) {
-        throw "Cloudflare Tunnel did not return a public URL. Check $tunnelLog"
+        throw "Cloudflare Tunnel did not return a public URL. Check $tunnelStderr"
     }
 
     Set-Content -LiteralPath $shareUrlFile -Value $shareUrl -Encoding utf8
