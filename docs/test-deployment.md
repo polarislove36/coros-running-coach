@@ -17,10 +17,10 @@
 在 PowerShell 中运行：
 
 ```powershell
-& "C:\Users\Jaco Wang\.codex\skills\coros-running-coach\scripts\share-test-site.ps1"
+& "C:\Users\Jaco Wang\.codex\skills\coros-running-coach\scripts\share-test-site.ps1" -Detach
 ```
 
-构建和健康检查完成后，终端会显示一个 `https://*.trycloudflare.com` 临时地址。将这个地址发给朋友即可。关闭脚本后地址失效。
+构建和健康检查完成后，终端会显示一个 `https://*.trycloudflare.com` 临时地址。将这个地址发给朋友即可。使用 `-Detach` 后，服务会在后台运行；电脑关机、网络变化或手动结束 `cloudflared` 和 `python` 进程后，地址失效。
 
 ## 当前测试边界
 

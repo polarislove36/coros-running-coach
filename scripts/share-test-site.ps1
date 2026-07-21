@@ -1,7 +1,8 @@
 param(
     [string]$BackendPath = "$env:USERPROFILE\Documents\New project\multisports-ai-coach",
     [int]$Port = 8000,
-    [switch]$SkipBuild
+    [switch]$SkipBuild,
+    [switch]$Detach
 )
 
 $ErrorActionPreference = "Stop"
@@ -99,6 +100,12 @@ try {
 
     Set-Content -LiteralPath $shareUrlFile -Value $shareUrl -Encoding utf8
     Write-Host "Public test URL: $shareUrl" -ForegroundColor Green
+    if ($Detach) {
+        Write-Host "The API and tunnel are running in the background." -ForegroundColor DarkGray
+        $server = $null
+        $tunnel = $null
+        return
+    }
     Write-Host "The URL remains available while this script is running." -ForegroundColor DarkGray
     Wait-Process -Id $tunnel.Id
 }
