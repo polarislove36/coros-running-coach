@@ -219,7 +219,7 @@ function getCurrentPage(): PageId {
     "account"
   ];
 
-  return routes.includes(route) ? route : "landing";
+  return routes.includes(route) ? route : "landing-minimal";
 }
 
 function renderPage(page: PageId): string {
@@ -1528,8 +1528,8 @@ function sportsForEventType(eventType: string): string[] {
 }
 
 function navigate(page: PageId): void {
-  window.location.hash = page === "landing" ? "" : page;
-  if (page === "landing" && window.location.hash === "") render();
+  window.location.hash = page === "landing-minimal" ? "" : page;
+  if (page === "landing-minimal" && window.location.hash === "") render();
 }
 
 function downloadFile(filename: string, content: string, type: string): void {
