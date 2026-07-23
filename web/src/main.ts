@@ -474,9 +474,9 @@ function renderLoginPage(): string {
             <button class="active" type="button">登录</button>
             <button type="button">注册</button>
           </div>
-          <div class="form-title"><h2>登录账号</h2><p>原型使用演示账号继续。</p></div>
-          <label class="field-label">手机号或邮箱<input name="account" type="text" value="runner@example.com" required></label>
-          <label class="field-label">验证码或密码<input name="password" type="password" value="123456" required></label>
+          <div class="form-title"><h2>登录账号</h2><p>使用已分配的内测账号继续。</p></div>
+          <label class="field-label">测试账号<input name="account" type="text" value="laohuang" autocomplete="username" required></label>
+          <label class="field-label">密码<input name="password" type="password" value="123456" autocomplete="current-password" required></label>
           <button class="button button-primary button-block" type="submit">继续</button>
           <p class="form-error" id="loginError" role="alert"></p>
           <p class="form-note">继续代表你同意产品仅提供训练建议，不构成医疗诊断或比赛成绩承诺。</p>
@@ -754,7 +754,7 @@ function renderPlanPage(): string {
           ${renderWeekCalendar(filtered, dates)}
         </section>
         <aside class="plan-side">
-          <section class="workspace-panel phase-card"><span class="section-kicker">当前阶段</span><h2>${escapeHtml(currentPlanMeta?.phase ?? "有氧能力建设基础期")}</h2><p>保持低强度训练占比，建立多运动总容量，同时避免连续两天下肢高强度。</p><div class="phase-progress"><i style="width:${Math.round(((activePlanWeek + 1) / Math.max(weeks.length, 1)) * 100)}%"></i></div><div class="phase-meta"><span>已开放第 ${activePlanWeek + 1} 周</span><span>共 ${Math.max(weeks.length, 1)} 周</span></div></section>
+          <section class="workspace-panel phase-card"><span class="section-kicker">当前阶段</span><h2>${escapeHtml(currentPlanMeta?.phase ?? "有氧能力建设基础期")}</h2><p>${escapeHtml(currentPlanMeta?.ai_coach?.summary ?? "保持低强度训练占比，建立多运动总容量，同时避免连续两天下肢高强度。")}</p><div class="phase-progress"><i style="width:${Math.round(((activePlanWeek + 1) / Math.max(weeks.length, 1)) * 100)}%"></i></div><div class="phase-meta"><span>已开放第 ${activePlanWeek + 1} 周</span><span>共 ${Math.max(weeks.length, 1)} 周</span></div></section>
           <section class="workspace-panel volume-card"><span class="section-kicker">本周结构</span><h2>${formatDuration(totalMinutes)}</h2><div class="volume-row"><span><i class="run-dot"></i>跑步</span><b>${formatDuration(minutesBySport.run)}</b></div><div class="volume-row"><span><i class="bike-dot"></i>骑行</span><b>${formatDuration(minutesBySport.bike)}</b></div><div class="volume-row"><span><i class="trail-dot"></i>越野跑</span><b>${formatDuration(minutesBySport.trail)}</b></div><div class="volume-row"><span><i class="rest-dot"></i>游泳</span><b>${formatDuration(minutesBySport.swim)}</b></div></section>
         </aside>
       </div>
@@ -1046,14 +1046,16 @@ function bindLogin(): void {
     event.preventDefault();
     const form = event.currentTarget as HTMLFormElement;
     const submit = form.querySelector<HTMLButtonElement>("button[type='submit']");
-    const account = String(new FormData(form).get("account") ?? "");
+    const data = new FormData(form);
+    const account = String(data.get("account") ?? "");
+    const password = String(data.get("password") ?? "");
     setActionError("loginError", "");
     if (submit) {
       submit.disabled = true;
       submit.textContent = "正在登录";
     }
     try {
-      currentUser = await login(account);
+      currentUser = await login(account, password);
       authResolved = true;
       await hydrateFromApi();
       navigate("connect");

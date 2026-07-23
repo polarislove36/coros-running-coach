@@ -33,7 +33,7 @@ export class ApiError extends Error {
 
 export interface ApiUser {
   id: string;
-  email: string;
+  account: string;
   name: string;
 }
 
@@ -48,6 +48,13 @@ export interface ApiPlan {
   days: ApiTrainingDay[];
   last_change?: string;
   generated_at?: string;
+  ai_coach?: {
+    mode: "deepseek" | "rules-only" | "fallback";
+    model?: string | null;
+    summary: string;
+    priorities: string[];
+    risk_flags: string[];
+  };
 }
 
 export interface UserSettings {
@@ -146,10 +153,10 @@ export async function apiRequest<T>(path: string, options?: RequestInit): Promis
   return response.json() as Promise<T>;
 }
 
-export async function login(email: string): Promise<ApiUser> {
+export async function login(account: string, password: string): Promise<ApiUser> {
   const result = await apiRequest<{ user: ApiUser }>(apiEndpoints.login, {
     method: "POST",
-    body: JSON.stringify({ email })
+    body: JSON.stringify({ account, password })
   });
   return result.user;
 }

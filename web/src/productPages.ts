@@ -173,13 +173,13 @@ export function renderAccountPage(context: ProductPageContext = {}): string {
       <header class="workspace-header"><div><h1>账号与订阅</h1><p>管理个人资料、会员、通知和数据权限。</p></div><span>内测体验</span></header>
       <div class="account-layout">
         <div class="account-main">
-          <section class="workspace-panel account-profile"><div class="account-avatar">${escapeMarkup(user?.name.slice(0, 1) ?? "训")}</div><div><h2>${escapeMarkup(user?.name ?? "训练用户")}</h2><p>${escapeMarkup(user?.email ?? "尚未登录")}</p><span>${escapeMarkup(sportSummary)}</span></div><button data-route="intake" type="button">修改训练档案</button></section>
+          <section class="workspace-panel account-profile"><div class="account-avatar">${escapeMarkup(user?.name.slice(0, 1) ?? "训")}</div><div><h2>${escapeMarkup(user?.name ?? "训练用户")}</h2><p>${escapeMarkup(user?.account ?? "尚未登录")}</p><span>${escapeMarkup(sportSummary)}</span></div><button data-route="intake" type="button">修改训练档案</button></section>
           <section class="workspace-panel setting-section"><div class="panel-header"><div><span class="section-kicker">通知</span><h2>训练提醒</h2></div></div>${renderSettingToggle("每日计划更新", "每天同步后提醒查看训练结论和计划变更", settings.daily_plan_update, "daily_plan_update")}${renderSettingToggle("训练完成复盘", "设备同步完成后提醒查看复盘", settings.workout_review, "workout_review")}${renderSettingToggle("赛事与减量提醒", "关键阶段开始前发送提醒", settings.event_reminders, "event_reminders")}</section>
           <section class="workspace-panel setting-section"><div class="panel-header"><div><span class="section-kicker">数据与隐私</span><h2>你的数据由你控制</h2></div></div><div class="privacy-action"><div><b>下载个人数据</b><span>导出账号、赛事、训练计划和复盘记录。</span></div><button type="button" id="exportAccountData">下载 JSON</button></div><div class="privacy-action"><div><b>删除账号与全部数据</b><span>删除后无法恢复，并会停止设备同步。</span></div><button class="danger-button" id="deleteAccount" type="button">删除账号</button></div><p class="form-error" id="accountError" role="alert"></p></section>
         </div>
         <aside class="account-side">
           <section class="workspace-panel membership-card"><span class="section-kicker">当前方案</span><h2>内测体验</h2><strong>试用中</strong><p>完整周期方向、每周滚动计划、每日复盘、动态调整与多格式导出。</p><div><span>正式版价格</span><b>¥19.9 / 月</b></div><button class="button button-secondary button-block" data-route="pricing" type="button">查看方案详情</button></section>
-          <section class="workspace-panel account-session"><h2>登录与安全</h2><div><span>当前账号</span><b>${escapeMarkup(user?.email ?? "-")}</b></div><button class="danger-button" id="logoutAccount" type="button">退出登录</button></section>
+          <section class="workspace-panel account-session"><h2>登录与安全</h2><div><span>当前账号</span><b>${escapeMarkup(user?.account ?? "-")}</b></div><button class="danger-button" id="logoutAccount" type="button">退出登录</button></section>
         </aside>
       </div>
     </section>
