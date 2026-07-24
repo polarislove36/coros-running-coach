@@ -487,6 +487,12 @@ function renderLoginPage(): string {
 }
 
 function renderConnectPage(): string {
+  const coros = deviceState.find((device) => device.id === "coros");
+  const connected = coros?.status === "connected";
+  const pending = coros?.connectionStatus === "authorization_pending";
+  const actionLabel = connected
+    ? coros.lastSync ? "重新同步并继续" : "读取 COROS 数据并继续"
+    : pending ? "重新发起授权" : "前往 COROS 官方授权";
   return `
     <main class="flow-page">
       ${renderFlowNav("连接设备", 1)}
@@ -495,9 +501,9 @@ function renderConnectPage(): string {
         <div class="connect-layout">
           <section class="connect-primary">
             <div class="device-logo">COROS</div>
-            <div><span class="availability">首版支持</span><h2>连接 COROS 账号</h2><p>读取训练记录、恢复、HRV、睡眠、静息心率和训练负荷，用于生成和调整计划。</p></div>
-            <button class="button button-primary" id="connectCoros" type="button">授权连接</button>
-            <p class="form-error" id="connectError" role="alert"></p>
+            <div><span class="availability">${connected ? "已完成官方授权" : "首版支持"}</span><h2>${connected ? "COROS 账号已连接" : "连接 COROS 账号"}</h2><p>${connected ? "授权令牌已加密保存。现在读取训练记录与恢复数据，建立你的真实训练基线。" : "将在 COROS 官方页面登录并确认权限。训动不会接触或保存你的 COROS 密码。"}</p>${coros?.lastSync ? `<span class="device-sync-note">最近同步：${escapeHtml(coros.lastSync)}</span>` : ""}</div>
+            <button class="button button-primary" id="connectCoros" type="button">${actionLabel}</button>
+            <p class="form-error" id="connectError" role="alert">${escapeHtml(coros?.connectionError ?? "")}</p>
           </section>
           <section class="scope-panel">
             <h2>授权后会读取</h2>
@@ -509,7 +515,7 @@ function renderConnectPage(): string {
             </div>
           </section>
         </div>
-        <div class="flow-actions"><button class="button button-secondary" data-route="login" type="button">返回</button><button class="text-button" data-route="intake" type="button">暂时跳过，使用演示数据</button></div>
+        <div class="flow-actions"><button class="button button-secondary" data-route="login" type="button">返回</button>${connected ? `<button class="text-button" data-route="intake" type="button">稍后同步，先填写训练目标</button>` : `<button class="text-button" data-route="intake" type="button">暂时跳过，使用演示数据</button>`}</div>
       </section>
     </main>
   `;
@@ -1073,17 +1079,24 @@ function bindConnect(): void {
   const button = document.querySelector<HTMLButtonElement>("#connectCoros");
   button?.addEventListener("click", async () => {
     setActionError("connectError", "");
-    button.textContent = "正在连接";
+    const connected = deviceState.find((device) => device.id === "coros")?.status === "connected";
+    button.textContent = connected ? "正在读取 COROS 数据" : "正在打开 COROS";
     button.disabled = true;
     try {
+      if (connected) {
+        await syncCoros();
+        deviceState = await listDevices();
+        currentDataMode = "cache";
+        button.textContent = "数据同步完成";
+        window.setTimeout(() => navigate("intake"), 350);
+        return;
+      }
       const result = await authorizeCoros();
       if (result.mode === "oauth" && result.authorization_url) {
         window.location.href = result.authorization_url;
         return;
       }
-      button.textContent = "演示数据已连接";
-      deviceState = await listDevices();
-      window.setTimeout(() => navigate("intake"), 350);
+      throw new Error("COROS 没有返回授权地址");
     } catch (error) {
       setActionError("connectError", errorMessage(error));
       button.textContent = "重新连接";
@@ -1171,7 +1184,7 @@ function bindWizard(): void {
       next.textContent = "正在生成计划";
       try {
         await persistIntake(form);
-        const generated = await generatePlan();
+        const generated = await generatePlan(currentDataMode);
         currentPlanMeta = generated.plan;
         trainingDays = generated.days;
         activePlanWeek = 0;
@@ -1369,7 +1382,7 @@ function bindDeviceActions(): void {
 }
 
 async function refreshPlanAfterEventChange(): Promise<void> {
-  const generated = await generatePlan();
+  const generated = await generatePlan(currentDataMode);
   currentPlanMeta = generated.plan;
   trainingDays = generated.days;
   activePlanWeek = 0;

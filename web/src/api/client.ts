@@ -241,10 +241,10 @@ export function disconnectDevice(deviceId: string): Promise<{ ok: boolean }> {
   return apiRequest(`${apiEndpoints.devices}/${deviceId}`, { method: "DELETE" });
 }
 
-export async function generatePlan(): Promise<{ plan: ApiPlan; days: TrainingDay[] }> {
+export async function generatePlan(dataMode: "demo" | "cache"): Promise<{ plan: ApiPlan; days: TrainingDay[] }> {
   const plan = await apiRequest<ApiPlan>(apiEndpoints.generatePlan, {
     method: "POST",
-    body: JSON.stringify({ requested_days: 14, data_mode: "demo" })
+    body: JSON.stringify({ requested_days: 14, data_mode: dataMode })
   });
   return { plan, days: plan.days.map(normalizeTrainingDay) };
 }
@@ -323,6 +323,8 @@ function normalizeDevice(device: Record<string, unknown>): DeviceConnection {
     id: String(device.id ?? "device"),
     name: String(device.name ?? "运动设备"),
     status: rawStatus.startsWith("connected") ? "connected" : rawStatus === "planned" ? "planned" : "available",
+    connectionStatus: rawStatus,
+    connectionError: device.connection_error ? String(device.connection_error) : undefined,
     lastSync: device.last_sync ? new Date(String(device.last_sync)).toLocaleString("zh-CN") : undefined,
     dataScopes: (device.data_scopes as string[] | undefined) ?? []
   };

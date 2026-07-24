@@ -93,6 +93,8 @@ export interface DeviceConnection {
   id: string;
   name: string;
   status: "connected" | "available" | "planned";
+  connectionStatus?: string;
+  connectionError?: string;
   lastSync?: string;
   dataScopes: string[];
 }
