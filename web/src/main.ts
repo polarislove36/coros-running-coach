@@ -470,13 +470,9 @@ function renderLoginPage(): string {
           <div class="auth-photo"><img src="/road-cyclists-jack-white.jpg" alt="山路耐力骑行训练"></div>
         </div>
         <form class="form-panel" id="loginForm">
-          <div class="segmented-control" aria-label="账号操作">
-            <button class="active" type="button">登录</button>
-            <button type="button">注册</button>
-          </div>
           <div class="form-title"><h2>登录账号</h2><p>使用已分配的内测账号继续。</p></div>
-          <label class="field-label">测试账号<input name="account" type="text" value="laohuang" autocomplete="username" required></label>
-          <label class="field-label">密码<input name="password" type="password" value="123456" autocomplete="current-password" required></label>
+          <label class="field-label">测试账号<input name="account" type="text" autocomplete="username" required></label>
+          <label class="field-label">密码<input name="password" type="password" autocomplete="current-password" required></label>
           <button class="button button-primary button-block" type="submit">继续</button>
           <p class="form-error" id="loginError" role="alert"></p>
           <p class="form-note">继续代表你同意产品仅提供训练建议，不构成医疗诊断或比赛成绩承诺。</p>
