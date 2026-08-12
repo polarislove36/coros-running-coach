@@ -31,6 +31,21 @@ export class ApiError extends Error {
   }
 }
 
+function apiErrorMessage(detail: unknown, fallback: string): string {
+  if (typeof detail === "string" && detail.trim()) return detail;
+  if (Array.isArray(detail)) {
+    for (const item of detail) {
+      const message = apiErrorMessage(item, "");
+      if (message) return message;
+    }
+  }
+  if (detail && typeof detail === "object") {
+    const value = detail as Record<string, unknown>;
+    return apiErrorMessage(value.message ?? value.msg ?? value.detail, fallback);
+  }
+  return fallback;
+}
+
 export interface ApiUser {
   id: string;
   account: string;
@@ -146,19 +161,26 @@ export async function apiRequest<T>(path: string, options?: RequestInit): Promis
   });
 
   if (!response.ok) {
-    const body = await response.json().catch(() => null) as { detail?: string } | null;
-    throw new ApiError(response.status, body?.detail ?? `请求失败（${response.status}）`);
+    const body = await response.json().catch(() => null) as { detail?: unknown } | null;
+    throw new ApiError(response.status, apiErrorMessage(body?.detail, `请求失败（${response.status}）`));
   }
 
   return response.json() as Promise<T>;
 }
 
 export async function login(account: string, password: string): Promise<ApiUser> {
-  const result = await apiRequest<{ user: ApiUser }>(apiEndpoints.login, {
-    method: "POST",
-    body: JSON.stringify({ account, password })
-  });
-  return result.user;
+  try {
+    const result = await apiRequest<{ user: ApiUser }>(apiEndpoints.login, {
+      method: "POST",
+      body: JSON.stringify({ account, password })
+    });
+    return result.user;
+  } catch (error) {
+    if (error instanceof ApiError && (error.status === 401 || error.status === 422)) {
+      throw new ApiError(error.status, "用户名或密码错误");
+    }
+    throw error;
+  }
 }
 
 export function getMe(): Promise<ApiUser> {
@@ -196,8 +218,8 @@ export function deleteAccount(): Promise<{ ok: boolean }> {
 export async function downloadApiFile(path: string): Promise<Blob> {
   const response = await fetch(`${apiBaseUrl}${path}`, { credentials: "include" });
   if (!response.ok) {
-    const body = await response.json().catch(() => null) as { detail?: string } | null;
-    throw new ApiError(response.status, body?.detail ?? `下载失败（${response.status}）`);
+    const body = await response.json().catch(() => null) as { detail?: unknown } | null;
+    throw new ApiError(response.status, apiErrorMessage(body?.detail, `下载失败（${response.status}）`));
   }
   return response.blob();
 }
